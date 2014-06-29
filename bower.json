@@ -3,6 +3,7 @@
   "private": "true",
   "devDependencies": {},
   "dependencies": {
-    "ionicons": "~1.5.2"
+    "ionicons": "~1.5.2",
+    "framework7": "~0.8.8"
   }
 }

@@ -1,0 +1,8 @@
+{
+  "name": "bkr",
+  "private": "true",
+  "devDependencies": {},
+  "dependencies": {
+    "ionicons": "~1.5.2"
+  }
+}

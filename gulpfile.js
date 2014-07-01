@@ -11,14 +11,16 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream')
 
 var paths = {
-  resources: ['./app/index.html', './app/templates/**/*.html', './app/images/**/*'],
+  resources: ['./app/index.html', './app/templates/**/*.html', './app/images/**/*', './app/lib/**/*'],
   stylus: './app/stylus/**/*.styl',
   js: './app/javascript/app.js'
 };
 
-var bower_src = {
+var lib_src = {
   './bower_components/framework7/dist/css/': ['framework7.min.css'],
+  './bower_components/framework7/dist/js/': ['framework7.min.js'],
   './bower_components/': ['ionicons/fonts/*', 'ionicons/css/ionicons.min.css'],
+  './app/lib/': ['*']
 }
 
 var transformTemplate = function(filepath, file, i, length) {
@@ -35,8 +37,8 @@ var transformTemplate = function(filepath, file, i, length) {
 }
 
 gulp.task('resources', function(done) {
-  for (var base in bower_src) {
-    var src = bower_src[base];
+  for (var base in lib_src) {
+    var src = lib_src[base];
     var files = []
     for (var i in src) {
       var file = src[i];
@@ -61,7 +63,7 @@ gulp.task('js', function(done) {
 browserify()
   .require('./bower_components/underscore/underscore.js', {expose: 'underscore'})
   .require('./bower_components/backbone/backbone.js', {expose: 'backbone'})
-  .require('./bower_components/framework7/dist/js/framework7.js', {expose: 'framework7'})
+  .require('./bower_components/jquery/dist/jquery.js', {expose: 'jquery'})
   .require('./app/javascript/app.js', { entry: true })
   .bundle({ debug: true })
   .pipe(mold.transform(

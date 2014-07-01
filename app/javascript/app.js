@@ -1,5 +1,4 @@
 // app.js
-require("framework7");
 
 var _ = require("underscore");
 var Backbone = require("backbone");

@@ -1,4 +1,4 @@
 bkr
 ===
 
-An LBS book-origin
+An LBS book-oriented SNS

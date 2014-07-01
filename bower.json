@@ -5,6 +5,7 @@
   "dependencies": {
     "ionicons": "~1.5.2",
     "framework7": "~0.8.8",
-    "backbone": "~1.1.2"
+    "backbone": "~1.1.2",
+    "jquery": "~2.1.1"
   }
 }

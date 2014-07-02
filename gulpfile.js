@@ -66,7 +66,7 @@ browserify()
   .require('./bower_components/underscore/underscore.js', {expose: 'underscore'})
   .require('./bower_components/backbone/backbone.js', {expose: 'backbone'})
   .require('./bower_components/jquery/dist/jquery.js', {expose: 'jquery'})
-  .require('./app/javascript/app.js', { entry: true })
+  .require('./app/javascript/init.js', { entry: true })
   .bundle({ debug: true })
   .pipe(mold.transform(
     function mapFileUrlComment(sourcemap, cb) {

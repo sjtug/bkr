@@ -1,5 +1,8 @@
-var initAV = function(){
-	AV.initialize("", "");
-}
+var _ = require("underscore");
 
-exports.initAV = initAV;
+var config = require("./config");
+var app = require("./app");
+
+_.once(function(){
+  AV.initialize(config.av.key, config.av.secret);
+});

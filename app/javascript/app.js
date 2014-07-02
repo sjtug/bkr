@@ -2,7 +2,7 @@
 
 var $ = require("jquery");
 var _ = require("underscore");
-var Backbeone = require("backbone");
+var Backbone = require("backbone");
 var init = require("./init");
 
 var myApp = new Framework7({

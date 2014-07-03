@@ -3,6 +3,7 @@ var _ = require("underscore");
 var Backbone = require("backbone");
 var User = require("../user");
 var app = require("../app").app;
+var RegisterView = require("./registerView");
 
 var LoginView = Backbone.View.extend({
 	tag : 'div',
@@ -29,7 +30,8 @@ var LoginView = Backbone.View.extend({
 		});
 	},
 	signup : function(){
-		console.log("clicked");
+		var registerView = new RegisterView();
+		registerView.popup();
 	}
 
 });

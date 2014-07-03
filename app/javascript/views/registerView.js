@@ -15,7 +15,7 @@ var RegisterView = Backbone.View.extend({
 		app.popup(this.$el);
 	},
 	render : function(){
-		this.$el.html($('#tmpl-regsiter').html());
+		this.$el.html($('#tmpl-register').html());
 	},
 	events : {
 		"change #username" : "checkname",
@@ -38,3 +38,5 @@ var RegisterView = Backbone.View.extend({
 		
 	}
 });
+
+module.exports = RegisterView;

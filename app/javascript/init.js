@@ -4,20 +4,20 @@ var _ = require("underscore");
 
 var config = require("./config");
 var app = require("./app").app;
-var LoginView = require("./views/loginView");
+var router = require("./router");
 
 _.once(function(){
-	// init backbone
-	Backbone.$ = $;
+  // init backbone
+  Backbone.$ = $;
+  Backbone.history.start();
 
-	// init av
+  // init av
   AV.initialize(config.av.key, config.av.secret);
 
+  // init navigate by link
+  $(document).on("click", "a.link", function(evt) {
+    var href = $(this).attr("href");
+    Backbone.history.navigate(href, true);
+  });
 
-  if(!AV.User.current()){   
-    var loginview = new LoginView();
-    loginview.popup();
-  }else{
-    console.log(AV.User.current().get("username"));
-  }
 })();

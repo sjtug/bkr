@@ -74,6 +74,10 @@ var reset = function(email, success, error){
   });
 }
 
+var logout : function(){
+  AV.User.logOut();
+}
+
 var current = function() {
   try {
     var user = AV.User.current();

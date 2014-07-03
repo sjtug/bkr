@@ -56,14 +56,6 @@ var validateEmail = function(email, success, error){
 }
 
 var login = function(username, password, success, error){
-  if(username.length <=3 ){
-    error("用户名长度不能小于3");
-    return ;
-  }
-  if(password == 0){
-    error("密码不能为空");
-    return ;
-  }
   AV.User.logIn(username, password, {
     success : function(){
       success();

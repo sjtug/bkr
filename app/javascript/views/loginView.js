@@ -18,13 +18,17 @@ var LoginView = Backbone.View.extend({
 		this.$el.html($('#tmpl-login').html());
 	},
 	events : {
-		"change #username" : "changename",
-		"click #signup" : "test"
+		"click #signup" : "signup",
+		"click #signin" : "signin"
 	},
-	changename : function(){
-		console.log("username changed");
+	signin : function(){
+		User.login($("#username").val(), $("#password").val(), function(){
+			app.alert("Welcome");
+		}, function(error){
+			app.alert(error, "登录错误");
+		});
 	},
-	test : function(){
+	signup : function(){
 		console.log("clicked");
 	}
 

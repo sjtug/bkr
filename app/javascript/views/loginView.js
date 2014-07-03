@@ -23,13 +23,16 @@ var LoginView = Backbone.View.extend({
 		"click #signin" : "signin"
 	},
 	signin : function(){
-		User.login($("#username").val(), $("#password").val(), function(){
+		var ts = this;
+		User.login(this.$el.find("#username").val(), this.$el.find("#password").val(), function(){
 			app.alert("Welcome");
+			app.closeModal(ts.$el);
 		}, function(error){
 			app.alert(error, "登录错误");
 		});
 	},
 	signup : function(){
+		app.closeModal(this.$el);
 		var registerView = new RegisterView();
 		registerView.popup();
 	}

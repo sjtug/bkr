@@ -1,22 +1,34 @@
 var register = function(username, password, email, success, error){
+  if(username.length <= 3){
+    error("用户名长度不能小于3");
+    return;
+  }
   var user = new AV.User();
   user.set("username", username);
   user.set("password", password);
   user.set("email", email);
 
   user.signUp(null, {
-    success: success(),
-    error: error()
+    success: function(user){
+      success();
+    },
+    error: function(user, err){
+      error(err.message);
+    }
   });
   return false;
 }
 var validateUser = function(username, success, error){
+  if(username.length <= 3){
+    error("用户名长度不能小于3");
+    return;
+  }
   var query = new AV.Query(AV.User);
   query.equalTo("username", username);
   query.find({
     success: function(results){
       if(results.length){
-        error("User exists");
+        error("用户已存在");
       }else{
         success();
       }
@@ -32,7 +44,7 @@ var validateEmail = function(email, success, error){
   query.find({
     success : function(results){
       if(results.length){
-        error("email exists!");
+        error("邮箱已存在");
       }else{
         success();
       }
@@ -44,16 +56,6 @@ var validateEmail = function(email, success, error){
 }
 
 var login = function(username, password, success, error){
-  console.log("username:"+username);
-  console.log("password:"+password);
-  if(username.length <=3 ){
-    error("用户名长度不能小于3");
-    return ;
-  }
-  if(password == 0){
-    error("密码不能为空");
-    return ;
-  }
   AV.User.logIn(username, password, {
     success : function(){
       success();

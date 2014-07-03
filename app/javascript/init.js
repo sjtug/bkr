@@ -14,6 +14,10 @@ _.once(function(){
   AV.initialize(config.av.key, config.av.secret);
 
 
-  var loginview = new LoginView();
-  loginview.popup();
+  if(!AV.User.current()){   
+    var loginview = new LoginView();
+    loginview.popup();
+  }else{
+    console.log(AV.User.current().get("username"));
+  }
 })();

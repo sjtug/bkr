@@ -5,18 +5,29 @@ var User = require("../user");
 var app = require("../app").app;
 
 var LoginView = Backbone.View.extend({
+	tag : 'div',
+	className : 'popup',
 	initialize : function(){
 		this.render();
+		$("body").append(this.$el);
 	},
 	popup : function(){
-		console.log(this.$el.html());
-		app.popup('<div class="popup">'+this.$el.html()+'</div>');
+		app.popup(this.$el);
 	},
 	render : function(){
-		// console.log($('#tmpl-login').html());
 		this.$el.html($('#tmpl-login').html());
-		// console.log(this.$el.html());
+	},
+	events : {
+		"change #username" : "changename",
+		"click #signup" : "test"
+	},
+	changename : function(){
+		console.log("username changed");
+	},
+	test : function(){
+		console.log("clicked");
 	}
+
 });
 
 module.exports = LoginView;

@@ -1,8 +1,19 @@
+var $ = require("jquery");
+var Backbone = require("backbone");
 var _ = require("underscore");
 
 var config = require("./config");
-var app = require("./app");
+var app = require("./app").app;
+var LoginView = require("./views/loginView");
 
 _.once(function(){
+	// init backbone
+	Backbone.$ = $;
+
+	// init av
   AV.initialize(config.av.key, config.av.secret);
-});
+
+
+  var loginview = new LoginView();
+  loginview.popup();
+})();

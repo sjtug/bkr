@@ -7,10 +7,6 @@ var app = require("./app").app;
 var router = require("./router");
 
 _.once(function(){
-  // init backbone
-  Backbone.$ = $;
-  Backbone.history.start();
-
   // init av
   AV.initialize(config.av.key, config.av.secret);
 
@@ -20,4 +16,7 @@ _.once(function(){
     Backbone.history.navigate(href, true);
   });
 
+  // init backbone
+  Backbone.$ = $;
+  Backbone.history.start();
 })();

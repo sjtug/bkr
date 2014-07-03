@@ -6,6 +6,8 @@ var BookView = require("./views/bookView");
 
 
 var App = require("./app");
+var user = require("./user");
+
 var app = App.app;
 var mainView = App.mainView;
 
@@ -35,6 +37,17 @@ var Router = Backbone.Router.extend({
   },
   people: function(username){
 
+  },
+  execute: function(callback, args) {
+    if (callback) {
+      if (callback!=this.login) {
+        if (!user.current()){
+          this.navigate('#login', true);
+          return;
+        }
+      }
+      callback.apply(this, args);
+    }
   },
   pushPage: function(data, ViewClass) {
     console.log(data);

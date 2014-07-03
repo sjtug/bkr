@@ -23,7 +23,7 @@ var LoginView = Backbone.View.extend({
 		"click #signin" : "signin"
 	},
 	signin : function(){
-		if(this.$el.find("#username").val().length < =3){
+		if(this.$el.find("#username").val().length <=3){
 			app.alert("用户名长度不能小于3", "登录错误");
 			return;
 		}
@@ -43,7 +43,7 @@ var LoginView = Backbone.View.extend({
 					{
 						text : "忘记密码",
 						onClick : function(){
-							app.prompt("请输入邮箱", "重置密码", function(){}, function(value){
+							app.prompt("请输入邮箱", "重置密码", function(value){
 								AV.User.requestPasswordReset(value, {
 									success : function(){
 										app.addNotification({
@@ -52,10 +52,10 @@ var LoginView = Backbone.View.extend({
 										})
 									}, 
 									error : function(){
-
+										console.log("重置错误");
 									}
 								})
-							})
+							}, function(){});
 						}
 					},
 					{

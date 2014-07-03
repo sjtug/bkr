@@ -74,8 +74,18 @@ var reset = function(email, success, error){
   });
 }
 
+var current = function() {
+  try {
+    var user = AV.User.current();
+    return user;
+  } catch (e) {
+    return null;
+  }
+}
+
 exports.register = register;
 exports.validateUser = validateUser;
 exports.validateEmail = validateEmail;
 exports.login = login;
 exports.reset = reset;
+exports.current = current;

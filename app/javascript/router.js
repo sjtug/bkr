@@ -2,6 +2,7 @@ var Backbone = require("backbone");
 
 var IndexView = require("./views/indexView");
 var LoginView = require("./views/loginView");
+var RegisterView = require("./views/registerView");
 var BookView = require("./views/bookView");
 
 
@@ -15,6 +16,7 @@ var Router = Backbone.Router.extend({
   routes: {
     '': 'index',
     'login': 'login',
+    'register': 'register',
     'logout': 'logout',
     'book/:isbn': 'book',
     'people/:username': 'people',
@@ -28,10 +30,18 @@ var Router = Backbone.Router.extend({
     this.indexView.render();
   },
   login: function(){
-    if (!this.loginView) {
+    app.closeModal();
+    if(!this.loginView){
       this.loginView = new LoginView();
     }
     this.loginView.popup();
+  },
+  register: function(){
+    app.closeModal();
+    if(!this.registerView){
+      this.registerView = new RegisterView();
+    }
+    this.registerView.popup();
   },
   logout: function(){
     user.logout();
@@ -45,7 +55,7 @@ var Router = Backbone.Router.extend({
   },
   execute: function(callback, args) {
     if (callback) {
-      if (callback!=this.login) {
+      if (callback!=this.login && callback!=this.register) {
         if (!user.current()){
           this.navigate('#login', true);
           return;

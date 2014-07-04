@@ -13,13 +13,12 @@ var LoginView = Backbone.View.extend({
     $("body").append(this.$el);
   },
   popup : function(){
-    app.popup(this.$el);
+    app.popup(this.$el, true);
   },
   render : function(){
     this.$el.html($('#tmpl-login').html());
   },
   events : {
-    "click #signup" : "signup",
     "click #signin" : "signin"
   },
   signin : function(){
@@ -64,11 +63,6 @@ var LoginView = Backbone.View.extend({
         ]
       })
     });
-  },
-  signup : function(){
-    app.closeModal(this.$el);
-    var registerView = new RegisterView();
-    registerView.popup();
   }
 
 });

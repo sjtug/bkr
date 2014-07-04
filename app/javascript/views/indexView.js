@@ -8,6 +8,7 @@ var IndexView = Backbone.View.extend({
   initialize: function(){
     this.$leftPanel.on('opened', this.leftPanelOpened);
     this.$leftPanel.on('closed', this.leftPanelClosed);
+    
   },
   render: function(){
     console.log('render');

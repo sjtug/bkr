@@ -4,6 +4,7 @@ var IndexView = require("./views/indexView");
 var LoginView = require("./views/loginView");
 var RegisterView = require("./views/registerView");
 var BookView = require("./views/bookView");
+var PeopleView = require("./views/peopleView");
 
 
 var App = require("./app");
@@ -51,7 +52,8 @@ var Router = Backbone.Router.extend({
     this.pushPage({isbn:isbn}, BookView);
   },
   people: function(username){
-
+    console.log("people");
+    this.pushPage({username:username}, PeopleView);
   },
   execute: function(callback, args) {
     if (callback) {

@@ -34,5 +34,6 @@ app/javascript/config.js
 
 # Users Environment Variables
 .lock-wscript
+.DS_Store
 
 app/javascript/config.js

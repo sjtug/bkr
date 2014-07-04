@@ -15,6 +15,7 @@ var Router = Backbone.Router.extend({
   routes: {
     '': 'index',
     'login': 'login',
+    'logout': 'logout',
     'book/:isbn': 'book',
     'people/:username': 'people',
   },
@@ -31,6 +32,10 @@ var Router = Backbone.Router.extend({
       this.loginView = new LoginView();
     }
     this.loginView.popup();
+  },
+  logout: function(){
+    user.logout();
+    this.navigate('', true);
   },
   book: function(isbn){
     this.pushPage({isbn:isbn}, BookView);

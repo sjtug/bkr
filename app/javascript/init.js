@@ -11,7 +11,7 @@ _.once(function(){
   AV.initialize(config.av.key, config.av.secret);
 
   // init navigate by link
-  $(document).on("click", "a.link", function(evt) {
+  $(document).on("click", "a.link, *.item-link", function(evt) {
     var href = $(this).attr("href");
     Backbone.history.navigate(href, true);
   });

@@ -33,7 +33,7 @@ var transformTemplate = function(filepath, file, i, length) {
   rp = rp.replace(/\.html$/, '');
   rp = rp.replace(/[\W_]+/g, '-');
   rp = rp.replace(/(^-|-$)/g, '');
-  return '\n<script type="text/template" id="' + rp + '">\n' + contents + '\n</script>';
+  return '\n<script type="text/template" id="tmpl-' + rp + '">\n' + contents + '\n</script>';
 }
 
 gulp.task('resources', function(done) {
@@ -46,10 +46,12 @@ gulp.task('resources', function(done) {
     }
     gulp.src(files, {base: base}).pipe(gulp.dest('./www/lib/'));
   } 
-  gulp.src('./app/index.html')
+  setTimeout(function(){
+    gulp.src('./app/index.html')
     .pipe(inject(gulp.src('./app/templates/**/*.html'), {transform: transformTemplate}))
     .pipe(gulp.dest('./www/'));
-  gulp.src('./app/images/**/*').pipe(gulp.dest('./www/images/')).on('end', done);
+    gulp.src('./app/images/**/*').pipe(gulp.dest('./www/images/')).on('end', done);
+  }, files.length * 10);
 });
 
 gulp.task('stylus', function(done) {
@@ -64,7 +66,7 @@ browserify()
   .require('./bower_components/underscore/underscore.js', {expose: 'underscore'})
   .require('./bower_components/backbone/backbone.js', {expose: 'backbone'})
   .require('./bower_components/jquery/dist/jquery.js', {expose: 'jquery'})
-  .require('./app/javascript/app.js', { entry: true })
+  .require('./app/javascript/init.js', { entry: true })
   .bundle({ debug: true })
   .pipe(mold.transform(
     function mapFileUrlComment(sourcemap, cb) {

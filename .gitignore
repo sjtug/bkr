@@ -30,7 +30,9 @@ bower_components
 platforms
 plugins
 www
+app/javascript/config.js
 
 # Users Environment Variables
 .lock-wscript
 
+app/javascript/config.js

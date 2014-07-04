@@ -77,12 +77,22 @@ var listUserBook = function(callback){
     });
 }
 var listNearByBook = function(callback){
-
+  var locationCallback = function(location){
+    var currentPoint = new AV.GeoPoint({latitude: location.coords.latitude, longitude: location.coords.longitude});
+    var query = new AV.Query(Book);
+    query.near("location", currentPoint);
+    query.limit(50);
+    query.notEqualTo("owner", User);
+    query.find({
+    success: callback
+    });
+  }
+navigator.geolocation.getCurrentPosition(locationCallback);
 }
 
-exports.listNearByBook  = listNearByBook ;
-exports.removeBook  = removeBook ;
-exports.listUserBook   = listUserBook  ;
-exports.addBook  = addBook ;
-exports.queryUserBook  = queryUserBook ;
 
+exports.addBook  = addBook ;
+exports.removeBook  = removeBook ;
+exports.queryUserBook  = queryUserBook ;
+exports.listNearByBook  = listNearByBook ;
+exports.listUserBook   = listUserBook  ;

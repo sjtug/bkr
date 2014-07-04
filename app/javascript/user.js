@@ -1,4 +1,4 @@
-var MD5 = require("./md5");
+var MD5 = require("./lib/md5");
 
 var register = function(username, password, email, success, error){
   if(username.length <= 3){
@@ -125,6 +125,23 @@ var changePassword = function(oldpassword, newpassword, repassword, success, err
   }
 }
 
+var getUser = function(username, successcal, errorcal){
+  var query = new AV.Query(AV.User);
+  query.equalTo("username", username);
+  query.find({
+    success : function(results){
+      if(results.length == 0){
+        errorcal("用户不存在")
+      }else{
+        successcal(results[0]);
+      }
+    },
+    error : function(error){
+      errorcal(error.message);
+    }
+  })
+}
+
 exports.register = register;
 exports.validateUser = validateUser;
 exports.validateEmail = validateEmail;
@@ -134,3 +151,4 @@ exports.current = current;
 exports.logout = logout;
 exports.avatar = avatar;
 exports.changePassword = changePassword;
+exports.getUser = getUser;

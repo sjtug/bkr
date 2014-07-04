@@ -1,3 +1,5 @@
+var $ = require("jquery");
+var _ = require("underscore");
 var Backbone = require("backbone");
 
 var IndexView = require("./views/indexView");
@@ -13,6 +15,7 @@ var user = require("./user");
 
 var app = App.app;
 var mainView = App.mainView;
+var baseNavTemplate = _.template($('#tmpl-base-nav').html());
 
 var Router = Backbone.Router.extend({
   routes: {
@@ -51,7 +54,7 @@ var Router = Backbone.Router.extend({
     this.navigate('', true);
   },
   book: function(isbn){
-    this.pushPage({isbn:isbn}, BookView);
+    this.pushPage('', 'book', {isbn:isbn}, BookView);
   },
   people: function(username){
     console.log("people");
@@ -72,8 +75,7 @@ var Router = Backbone.Router.extend({
       callback.apply(this, args);
     }
   },
-  pushPage: function(data, ViewClass) {
-    console.log(data);
+  pushPage: function(back, title, data, ViewClass) {
     if (!this._history) this._history = [''];
     if (this._history.length>1) {
       var last2 = this._history[this._history.length-2];
@@ -88,13 +90,13 @@ var Router = Backbone.Router.extend({
       mainView.goBack();
       return;
     }
-    data['back'] = '';
+    back = back || '';
     if (this._history.length > 0){
-      data['back'] = '#' + this._history[this._history.length-1];
+      back = '#' + this._history[this._history.length-1];
     }
-    var newView = new ViewClass();
+    mainView.loadContent(baseNavTemplate({back:back, title:title}));
+    var newView = new ViewClass({el: $('.page-on-center .page-content').get(0)});
     newView.render(data);
-    mainView.loadContent(newView.el);
     this._history.push(Backbone.history.fragment);
   }
 });

@@ -35,7 +35,6 @@ var LoginView = Backbone.View.extend({
 		User.login(this.$el.find("#username").val(), this.$el.find("#password").val(), function(){
 			app.alert("Welcome");
 			app.closeModal(ts.$el);
-			Nihiuetest=require("../bookmanage");     
 		}, function(error){
 			app.modal({
 				title : "登录错误",

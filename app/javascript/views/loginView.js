@@ -13,14 +13,18 @@ var LoginView = Backbone.View.extend({
     $("body").append(this.$el);
   },
   popup : function(){
-    app.popup(this.$el);
+    app.popup(this.$el, true);
   },
   render : function(){
     this.$el.html($('#tmpl-login').html());
   },
   events : {
-    "click #signup" : "signup",
+    "click #reset" : "reset",
     "click #signin" : "signin"
+  },
+  reset : function(){
+    this.$el.find("#username").val("");
+    this.$el.find("#password").val("");
   },
   signin : function(){
     if(this.$el.find("#username").val().length <=3){
@@ -64,11 +68,6 @@ var LoginView = Backbone.View.extend({
         ]
       })
     });
-  },
-  signup : function(){
-    app.closeModal(this.$el);
-    var registerView = new RegisterView();
-    registerView.popup();
   }
 
 });

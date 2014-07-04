@@ -12,7 +12,7 @@ var RegisterView = Backbone.View.extend({
     $("body").append(this.$el);
   },
   popup : function(){
-    app.popup(this.$el);
+    app.popup(this.$el, true);
   },
   render : function(){
     this.$el.html($('#tmpl-register').html());

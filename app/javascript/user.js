@@ -91,8 +91,38 @@ var current = function() {
 
 var avatar = function(size){
   var user = AV.User.current();
-  var path = "http://www.gravatar.com/avatar/"+MD5(user.get("email"))+"?s="+(size || 120)+"&d=mm";
-  return path;
+  if(user){
+    return "http://www.gravatar.com/avatar/"+MD5(user.get("email"))+"?s="+(size || 120)+"&d=mm";
+  }else{
+    return "http://www.gravatar.com/avatar/404?s="+(size || 120)+"&d=mm";
+  }
+}
+
+var changePassword = function(oldpassword, newpassword, repassword, success, error){
+  if(newpassword.length==0){
+    error("新密码不能为空！");
+    return;
+  }
+  if(newpassword != repassword){
+    error("两次密码不一样！");
+    return ;
+  }
+  var user = current();
+  if(user){
+    if(password != user.get("password")){
+      error("密码输入错误");
+      return;
+    }
+    user.set("password", newpassword);
+    user.save(null, {
+      success : function(user){
+        success();
+      }, 
+      error : function(user, err){
+        error(err.message);
+      }
+    })
+  }
 }
 
 exports.register = register;
@@ -103,3 +133,4 @@ exports.reset = reset;
 exports.current = current;
 exports.logout = logout;
 exports.avatar = avatar;
+exports.changePassword = changePassword;

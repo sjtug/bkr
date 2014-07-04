@@ -18,7 +18,7 @@ var addBook = function(isbn,success_callback,error_callback) {
           newbook.set("author",infodata.author);
           newbook.set("isbn",isbn);
           newbook.set("owner",User);
-          newbook.set("location",[location.coords.latitude,location.coords.longitude]);
+          newbook.set("location",new AV.GeoPoint({latitude: location.coords.latitude, longitude: location.coords.longitude}));
           newbook.save(null, {
             success: success_callback,
             error: function(newbook, error) {

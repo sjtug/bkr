@@ -1,5 +1,8 @@
 // main stylus file
 
+left-panel-color = #E0F8D8
+left-panel-font-color = #4B5245
+left-panel-border-color = #8BA9C4
 
 .tabbar
   i.icon
@@ -8,3 +11,38 @@
 .navbar
   i.icon
     font-size: 28px
+
+.circular
+  border-radius: 50%
+  height: 120px
+  width: 120px
+  margin: 0 auto
+  overflow: hidden
+
+.username
+  text-align: center
+  font-size: 20px
+  margin-top: 5px
+  font-color: left-panel-font-color
+
+.panel
+  background: left-panel-color
+  .item-content
+    background: left-panel-color
+    border-top: 0px
+    border-bottom: 1px solid left-panel-border-color
+  .item-inner
+    border-bottom: 0px
+  .item-media
+    width: 30px
+    text-align: center
+    i
+      margin: 0 auto
+  .item-title
+    font-color: left-panel-font-color
+  .list-block
+    ul
+      background: left-panel-color
+      border-top: 1px solid left-panel-border-color
+      border-bottom: 0px
+

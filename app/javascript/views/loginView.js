@@ -33,7 +33,6 @@ var LoginView = Backbone.View.extend({
 		}
 		var ts = this;
 		User.login(this.$el.find("#username").val(), this.$el.find("#password").val(), function(){
-			app.alert("Welcome");
 			app.closeModal(ts.$el);
 		}, function(error){
 			app.modal({

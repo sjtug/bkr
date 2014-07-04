@@ -1,3 +1,5 @@
+var MD5 = require("./md5");
+
 var register = function(username, password, email, success, error){
   if(username.length <= 3){
     error("用户名长度不能小于3");
@@ -87,6 +89,12 @@ var current = function() {
   }
 }
 
+var avatar = function(size){
+  var user = AV.User.current();
+  var path = "http://www.gravatar.com/avatar/"+MD5(user.get("email"))+"?s="+(size || 120)+"&d=mm";
+  return path;
+}
+
 exports.register = register;
 exports.validateUser = validateUser;
 exports.validateEmail = validateEmail;
@@ -94,3 +102,4 @@ exports.login = login;
 exports.reset = reset;
 exports.current = current;
 exports.logout = logout;
+exports.avatar = avatar;

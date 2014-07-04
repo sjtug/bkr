@@ -19,7 +19,12 @@ var LoginView = Backbone.View.extend({
     this.$el.html($('#tmpl-login').html());
   },
   events : {
+    "click #reset" : "reset",
     "click #signin" : "signin"
+  },
+  reset : function(){
+    this.$el.find("#username").val("");
+    this.$el.find("#password").val("");
   },
   signin : function(){
     if(this.$el.find("#username").val().length <=3){

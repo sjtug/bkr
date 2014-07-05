@@ -10,6 +10,11 @@ var register = function(username, password, email, success, error){
   user.set("password", password);
   user.set("email", email);
 
+  user.set("realname", "");
+  user.set("telephone", "");
+  user.set("qqnumber", "");
+  user.set("wxnumber", "");
+
   user.signUp(null, {
     success: function(user){
       success();
@@ -146,6 +151,28 @@ var getUser = function(username, successcal, errorcal){
     }
   })
 }
+var saveBasic = function(realname, telephone, qqnumber, wxnumber, successcal, errorcal){
+  // var user = current();
+  // user.set("realname", realname);
+  // user.set("telephone", telephone);
+  // user.set("qqnumber", qqnumber);
+  // user.set("wxnumber", wxnumber);
+
+  current().set("realname", realname);
+  current().set("telephone", telephone);
+  current().set("qqnumber", qqnumber);
+  current().set("wxnumber", wxnumber);
+
+  current().save(null,{
+    success : function(user){
+      successcal();
+    }, 
+    error : function(user, error){
+      errorcal(error.message);
+    }
+  })
+}
+
 
 exports.register = register;
 exports.validateUser = validateUser;
@@ -157,3 +184,4 @@ exports.logout = logout;
 exports.avatar = avatar;
 exports.changePassword = changePassword;
 exports.getUser = getUser;
+exports.saveBasic = saveBasic;

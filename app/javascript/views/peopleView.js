@@ -12,12 +12,12 @@ var PeopleView = Backbone.View.extend({
   render: function(data) {
     var ts = this;
     var bookmanage = require('../bookmanage');
-  	User.getUser(data.username, function(result){
-      otheruser = result;
-      data.avatar = User.avatar(120, result);
-      AV.GeoPoint.current(function(currentLocation) {
-        bookmanage.listBookByUser(
-          otheruser,
+  	User.getUser(data.username, function(otheruser){
+      data.avatar = User.avatar(120, otheruser);
+      ts.otheruser = otheruser;
+      //AV.GeoPoint.current(function(currentLocation) {
+      (function(currentLocation) {
+        bookmanage.listBookByUser(ts.otheruser,
           function(results){
             data.books = _.map(results, function(r){
               var rs = r.get('detail');
@@ -28,23 +28,30 @@ var PeopleView = Backbone.View.extend({
                 else rs.distance = Math.round(distance*10)/10;
               }
               return rs;
-            },{timeout: 1000});
-            yooed(otheruser, function(times, binary){
+            });
+            Yoo.yooed(ts.otheruser, function(times){
+              data.yoo_times = times;
+              data.otheruser = ts.otheruser;
               ts.$el.html(ts.template(data));
             }, function(error){
-              console.log(error);
-            })          
+              App.app.alert('网络错误', 'bkr');
+            })
           });
-      });
+      })();
     }, function(error){
       App.app.alert("", error);
     });
   }, 
   events : {
-    "click #sayyo" : 'yofunction'
+    "click #sayyoo" : 'yofunction'
   }, 
   yofunction : function(){
-    Yoo.yoo(otheruser);
+    App.app.showIndicator();
+    var ts = this;
+    Yoo.yoo(this.otheruser, function() {
+      App.app.hideIndicator();
+      ts.render()
+    });
   }
 })
 

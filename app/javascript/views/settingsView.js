@@ -31,19 +31,14 @@ var SettingsView = Backbone.View.extend({
 			})
 	},
 	save : function(){
-		var user = User.current();
-		user.set("realname", this.$el.find("#realname").val());
-		user.set("telephone", this.$el.find("#telephone").val());
-		user.set("qqnumber", this.$el.find("#qqnumber").val());
-		user.set("wxnumber", this.$el.find("#wxnumber").val());
-		user.save(null, {
-			success : function(user){
+		User.saveBasic(this.$el.find("#realname").val(), 
+			this.$el.find("#telephone").val(), this.$el.find("#qqnumber").val(), 
+			this.$el.find("#wxnumber").val(), function(){
 				app.alert("修改成功", "基本信息");
-			}, 
-			error : function(user, error){
+				console.log(AV.User.current());
+			}, function(error){
 				app.alert("修改失败","基本信息");
-			}
-		});
+			});
 	}
 });
 

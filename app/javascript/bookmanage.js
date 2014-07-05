@@ -3,6 +3,7 @@ $ = require("jquery");
 var Book =  AV.Object.extend("book");
 var User = AV.User.current();
 var GeoCoding = require("./geocoding");
+
 var fetchBookInfo=function(isbn,callback)  
 {
    $.ajax({
@@ -12,6 +13,7 @@ var fetchBookInfo=function(isbn,callback)
              success: callback
         });
 };
+
 
 var fakeBookList = function(isbn,locationArray)
 {
@@ -123,7 +125,7 @@ var listNearBook = function(callback){
         }
       } 
     callback(res);
-    }
+    }  
     var currentPoint = new AV.GeoPoint({latitude: location.coords.latitude, longitude: location.coords.longitude});
     var query = new AV.Query(Book);
     query.descending("createdAt");
@@ -158,7 +160,6 @@ var listUserByBook = function(bookObj,callback)
   function queryCallback(results)
   {   
     var ownerList = [];
-    tt=results;
     for (var idx in results){
       ownerList.push(results[idx].get("owner"));
     }
@@ -175,7 +176,35 @@ var listUserByBook = function(bookObj,callback)
     });
 }
 
+
+var AddStreetNameToAllBooks = function()
+{
+  function queryCallback(results)
+  {   
+    for (var idx in results){    
+      function temp(){ 
+      var newbook=results[idx]; 
+        var streetnameCallback = function(streetname){
+           if(streetname.result && streetname.result.addressComponent)
+           {
+            newbook.set("streetname",streetname.result.addressComponent);
+           }
+           newbook.save({success:function(n){console.log(n.get("title")+" succ");}});
+        }
+        GeoCoding.geoDecodingGeoPoint(newbook.get("location"),streetnameCallback);
+        }
+        temp();
+    }
+  }
+
+   var query = new AV.Query(Book);
+   query.doesNotExist("streetname");
+   query.find({
+    success: queryCallback
+    });
+}
 //exports.fakeBookList  = fakeBookList ;
+//exports.AddStreetNameToAllBooks = AddStreetNameToAllBooks;
 exports.fetchBookInfo = fetchBookInfo; 
 exports.addBook  = addBook ;
 exports.removeBook  = removeBook ;

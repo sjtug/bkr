@@ -99,6 +99,10 @@ var avatar = function(size, user){
 }
 
 var changePassword = function(oldpassword, newpassword, repassword, success, error){
+  if(oldpassword.length==0){
+    error("当前密码不能为空！");
+    return
+  }
   if(newpassword.length==0){
     error("新密码不能为空！");
     return;
@@ -107,22 +111,23 @@ var changePassword = function(oldpassword, newpassword, repassword, success, err
     error("两次密码不一样！");
     return ;
   }
-  var user = current();
-  if(user){
-    if(password != user.get("password")){
-      error("密码输入错误");
-      return;
+  AV.User.logIn(current().get("username"), oldpassword, {
+    success : function(){
+      var user = current();
+      user.set("password", newpassword);
+      user.save(null, {
+        success : function(user){
+          success();
+        },
+        error : function(user, err){
+          error(err.message);
+        }
+      });
+    },
+    error : function(){
+      error("当前密码不正确！");
     }
-    user.set("password", newpassword);
-    user.save(null, {
-      success : function(user){
-        success();
-      }, 
-      error : function(user, err){
-        error(err.message);
-      }
-    })
-  }
+  })
 }
 
 var getUser = function(username, successcal, errorcal){

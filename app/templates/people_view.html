@@ -16,7 +16,32 @@
 </div>
 
 <div class="content-block-title">最近标记过</div>
-<div class="content-block">
-  <div class="content-block-inner">
-  </div>
+<div class="list-block media-list book-list">
+  <ul>
+    <% _.each(books, function(book){ %>
+    <li>
+    <a href="#book/<%= book.isbn13 || book.isbn10 %>" class="item-link item-content">
+      <div class="item-media"><img src="<%= book.images.medium %>" height="60"></div>
+      <div class="item-inner">
+        <div class="item-title-row">
+          <div class="item-title"><%= book.title %></div>
+          <div class="item-after">
+            <i class="ion-ios7-star"></i>
+            <%= book.rating.average %>
+          </div>
+        </div>
+        <div class="item-subtitle">
+          <% 
+          if (book.author instanceof Array) print(book.author.join(', '));
+          else print(book.author);
+          %>
+        </div>
+        <% if (book.distance) { %>
+        <div class="item-text">距离 <%= book.distance %> km</div>
+        <% } %>
+      </div>
+    </a>
+    </li>
+    <% }) %>
+  </ul>
 </div>

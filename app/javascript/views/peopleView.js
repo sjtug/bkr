@@ -28,7 +28,7 @@ var PeopleView = Backbone.View.extend({
                 else rs.distance = Math.round(distance*10)/10;
               }
               return rs;
-            });
+            },{timeout: 1000});
             yooed(otheruser, function(times, binary){
               ts.$el.html(ts.template(data));
             }, function(error){

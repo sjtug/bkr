@@ -10,7 +10,7 @@
 					<div class="item-title"><%=yoo.get('fromUser').get('username') %></div>
 					<div class="item-after">
 						<span class="badge">
-							<% if(yoo.get('binary')){%>好友<%}else{%>该用户戳了你一下<%}%>
+							<% if(yoo.get('binary')){%>好友<%}else{%>该用户戳了你 <%=times[yoo.get('fromUser').get('username')]%> 下<%}%>
 						</span>
 					</div>
 				</div>

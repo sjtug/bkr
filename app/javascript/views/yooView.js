@@ -16,6 +16,7 @@ var YooView = Backbone.View.extend({
   		console.log("res"+res);
   		var data = {};
   		data.yoos = res;
+      data.times = ts.times(results);
   		data.avatar = User.avatar;
   		ts.$el.html(ts.template(data));
   	}, function(error){
@@ -42,6 +43,18 @@ var YooView = Backbone.View.extend({
   		}
   	}
   	return res;
+  },
+  times : function(results){
+    var username = {};
+    for(var i in results){
+      var name = results[i].get("fromUser").get("username");
+      if(name && !username[name]){
+        username[name] = 1;
+      }else{
+        username[name]++;
+      }
+    }
+    return username;
   }
 })
 

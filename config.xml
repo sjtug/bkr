@@ -9,6 +9,9 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <plugins>
+        <plugin value="CDVBarcodeScanner" name="com.phonegap.plugins.barcodescanner" />
+    </plugins>
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />

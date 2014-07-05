@@ -1,6 +1,5 @@
 try {
-  console.log(cordova.plugins)
-  var scan = cordova.plugins.barcodeScanner.scan;
+  var scan = cordova.require("com.phonegap.plugins.barcodescanner.BarcodeScanner").scan;
 } catch (e) {
   var scan = function(success, fail) {
     console.log("Calling barscan code out of cordova enviroment!")

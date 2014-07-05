@@ -1,2 +1,11 @@
-book view on <%= isbn %>
+
+
+<div id="bookview" class="page-on-center page-content">
+    <div id="book-image"><img src="<%= bookjson.images.medium %>" /></div>
+    <div id="header-text">
+        <h3><%= bookjson.title %></h3>
+        <p><%= bookjson.author.join() %></p>
+    </div>
+
+</div>
 

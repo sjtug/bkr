@@ -2,7 +2,6 @@
 $ = require("jquery");
 var Book =  AV.Object.extend("book");
 var User = AV.User.current();
-
 var fetchBookInfo=function(isbn,callback)  
 {
    $.ajax({
@@ -48,38 +47,29 @@ var fakeBookList = function(isbn,locationArray)
   queryUserBook(isbn,queryUserBookCallback);
 }
 
-var addBook = function(isbn,success_callback,error_callback) {
+var addBook = function(isbn,infodata,success_callback,error_callback) {
   error_callback=error_callback||function(data){console.log(data)};
-  var queryUserBookCallback = function(result)
-  {
+  var queryUserBookCallback = function(result){
     if(result){
        error_callback("BOOK_ALREADY_EXISTS");
        return;
-    }
-    var bookInfoCallback = function(infodata){
-      if(infodata && infodata.title){
-        var locationCallback = function(location){
-          var newbook = new Book();
-          newbook.set("detail",infodata);
-          newbook.set("title",infodata.title);
-          newbook.set("author",infodata.author);
-          newbook.set("isbn",isbn);
-          newbook.set("owner",User);
-          newbook.set("location",new AV.GeoPoint({latitude: location.coords.latitude, longitude: location.coords.longitude}));
-          newbook.save(null, { 
-            success: success_callback,
-            error: function(newbook, error) {
-              error_callback(error.description);   
-            }
-          });
+    }   
+    var locationCallback = function(location){
+      var newbook = new Book();
+      newbook.set("detail",infodata);
+      newbook.set("title",infodata.title);
+      newbook.set("author",infodata.author);
+      newbook.set("isbn",isbn);
+      newbook.set("owner",User);
+      newbook.set("location",new AV.GeoPoint({latitude: location.coords.latitude, longitude: location.coords.longitude}));
+      newbook.save(null, { 
+        success: success_callback,
+        error: function(newbook, error) {
+          error_callback(error.description);   
         }
-        navigator.geolocation.getCurrentPosition(locationCallback);
-      } else{
-        error_callback("BOOK_INFO_NOT_FOUND");
-        return;
-      }
+      });
     }
-    fetchBookInfo(isbn,bookInfoCallback)
+    navigator.geolocation.getCurrentPosition(locationCallback);     
   }
   queryUserBook(isbn,queryUserBookCallback);
 }
@@ -176,7 +166,7 @@ var listUserByBook = function(bookObj,callback)
 }
 
 //exports.fakeBookList  = fakeBookList ;
-
+exports.fetchBookInfo = fetchBookInfo; 
 exports.addBook  = addBook ;
 exports.removeBook  = removeBook ;
 exports.listNearBook  = listNearBook ;

@@ -15,8 +15,7 @@ var PeopleView = Backbone.View.extend({
   	User.getUser(data.username, function(otheruser){
       data.avatar = User.avatar(120, otheruser);
       ts.otheruser = otheruser;
-      //AV.GeoPoint.current(function(currentLocation) {
-      (function(currentLocation) {
+      AV.GeoPoint.current(function(currentLocation) {
         bookmanage.listBookByUser(ts.otheruser,
           function(results){
             data.books = _.map(results, function(r){

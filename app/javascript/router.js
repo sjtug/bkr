@@ -8,7 +8,7 @@ var RegisterView = require("./views/registerView");
 var BookView = require("./views/bookView");
 var PeopleView = require("./views/peopleView");
 var BarcodeView = require("./views/barcodeView");
-var AboutView = require("./views/AboutView");
+var AboutView = require("./views/aboutView");
 
 
 var App = require("./app");

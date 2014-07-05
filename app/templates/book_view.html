@@ -1,2 +1,75 @@
-book view on <%= isbn %>
+
+
+<div id="bookview" class="page-on-center page-content">
+    <div id="book-image"><img src="<%= bookjson.images.medium %>" /></div>
+    <div id="header-text">
+        <h3><%= bookjson.title %></h3>
+        <p><%= bookjson.author.join() %></p>
+        <p><%= bookjson.rating.average %></p>
+    </div>
+    
+    <div class="list-block">
+        <div class="list-group">
+            <ul>
+                <li class="item-content">
+                    <div class="item-media">
+                        <i class="icon ion-home">
+                        </i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">
+                            <%= bookjson.publisher %>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media">
+                        <i class="icon ion-ios7-calendar-outline">
+                        </i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">
+                            <%= bookjson.pubdate %>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media">
+                        <i class="icon ion-android-book">
+                        </i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">
+                            <%= bookjson.pages %>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media">
+                        <i class="icon ion-ios7-pricetag">
+                        </i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">
+                            <%= bookjson.tags[0].name %>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media">
+                        <i class="icon ion-ios7-information">
+                        </i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">
+                            <%= bookjson.summary %>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
 

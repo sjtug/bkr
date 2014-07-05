@@ -71,11 +71,17 @@ var Router = Backbone.Router.extend({
   },
   scanbarcode: function() {
     var barcodeView = new BarcodeView();
-    barcodeView.render();
+    var ts = this;
+    barcodeView.scan(function(isbn) {
+        ts.navigate('#book/' + isbn, true);
+    });
   },
   addbook: function(){
     var addbookView = new AddBookView();
-    addbookView.render();
+    var ts = this;
+    addbookView.add(function(isbn) {
+        ts.navigate('#book/' + isbn, true);
+    });
   },
   about: function() {
    this.pushPage('', '关于', {}, AboutView);

@@ -13,7 +13,8 @@ _.once(function(){
   // init navigate by link
   $(document).on("click", "a.link, *.item-link", function(evt) {
     var href = $(this).attr("href");
-    Backbone.history.navigate(href, true);
+    if(href[0]=='#') Backbone.history.navigate(href, true);
+    else window.location = href;
   });
 
   // init backbone

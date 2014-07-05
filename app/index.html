@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <!-- Your app title -->
     <title>bkr</title>
     <!-- Path to Framework7 Library CSS-->
@@ -18,8 +17,6 @@
     <script type="text/javascript" charset="utf-8" src="plugins/com.phonegap.plugins.barcodescanner/www/barcodescanner.js"></script>
   </head>
   <body>
-    <!-- Status bar overlay for full screen mode (PhoneGap) -->
-    <div class="statusbar-overlay"></div>
     <!-- Panels overlay-->
     <div class="panel-overlay"></div>
     <!-- Left panel with reveal effect-->
@@ -27,6 +24,8 @@
     </div>
     <!-- Views -->
     <div class="views">
+      <div class="statusbar-overlay"></div>
+      <!-- Status bar overlay for full screen mode (PhoneGap) -->
       <div class="view view-main" data-page='index'>
         <!-- Your main view, should have "view-main" class -->
         <!-- Top Navbar-->
@@ -40,8 +39,8 @@
           </div>
         </div>
         <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
-        <div class="pages navbar-through toolbar-through">
-          <div class="page page-on-center" data-page="index">
+        <div class="pages page-on-center navbar-through toolbar-through">
+          <div class="page" data-page="index">
             <div class="page-content tabs">
               <div id="books" data-page="books" class="view tab">
                 <div class="spinner">
@@ -66,21 +65,22 @@
               </div>
 
               <!-- Bottom Tabbar-->
-              <div class="toolbar tabbar">
-                <div class="toolbar-inner">
-                  <!-- Toolbar links -->
-                  <a href="#books" class="tab-link">
-                    <i class="icon ion-ios7-browsers-outline"></i>
-                  </a>
-                  <a href="#nearby" class="tab-link active">
-                    <i class="icon ion-ios7-navigate-outline"></i>
-                  </a>
-                  <a href="#yoo" class="tab-link">
-                    <i class="icon ion-ios7-chatboxes-outline"></i>
-                  </a>
-                </div>
-              </div>
             </div>
+          </div>
+        </div>
+
+        <div class="toolbar tabbar">
+          <div class="toolbar-inner">
+            <!-- Toolbar links -->
+            <a href="#books" class="tab-link">
+              <i class="icon ion-ios7-browsers-outline"></i>
+            </a>
+            <a href="#nearby" class="tab-link active">
+              <i class="icon ion-ios7-navigate-outline"></i>
+            </a>
+            <a href="#yoo" class="tab-link">
+              <i class="icon ion-ios7-chatboxes-outline"></i>
+            </a>
           </div>
         </div>
       </div>

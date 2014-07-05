@@ -1,0 +1,29 @@
+<div class="list-block media-list book-list">
+  <ul>
+    <% _.each(books, function(book){ %>
+    <li>
+    <a href="#book/<%= book.isbn13 || book.isbn10 %>" class="item-link item-content">
+      <div class="item-media"><img src="<%= book.images.medium %>" height="60"></div>
+      <div class="item-inner">
+        <div class="item-title-row">
+          <div class="item-title"><%= book.title %></div>
+          <div class="item-after">
+            <i class="ion-ios7-star"></i>
+            <%= book.rating.average %>
+          </div>
+        </div>
+        <div class="item-subtitle">
+          <% 
+          if (book.author instanceof Array) print(book.author.join(', '));
+          else print(book.author);
+          %>
+        </div>
+        <% if (book.streetname) { %>
+        <div class="item-text">位置 <%= book.streetname %> </div>
+        <% } %>
+      </div>
+    </a>
+    </li>
+    <% }) %>
+  </ul>
+</div>

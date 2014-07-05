@@ -3,16 +3,16 @@ var _ = require("underscore");
 
 var Backbone = require("backbone");
 
-var YooView = Backbone.View.extend({
-  template: _.template($('#tmpl-yoo-view').html()),
+var NearbyView = Backbone.View.extend({
+  template: _.template($('#tmpl-nearby-view').html()),
   render: function() {
     this.$el.html(this.template())
   },
   trigger: function() {
     // this tab has been triggered
     // this.render()
-    console.log('yoo trigger');
+    console.log('nearby trigger');
   }
 })
 
-module.exports = YooView;
+module.exports = NearbyView;

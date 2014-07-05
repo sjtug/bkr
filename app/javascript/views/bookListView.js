@@ -3,16 +3,16 @@ var _ = require("underscore");
 
 var Backbone = require("backbone");
 
-var YooView = Backbone.View.extend({
-  template: _.template($('#tmpl-yoo-view').html()),
+var BookListView = Backbone.View.extend({
+  template: _.template($('#tmpl-book-list-view').html()),
   render: function() {
     this.$el.html(this.template())
   },
   trigger: function() {
     // this tab has been triggered
     // this.render()
-    console.log('yoo trigger');
+    console.log('booklist trigger');
   }
 })
 
-module.exports = YooView;
+module.exports = BookListView;

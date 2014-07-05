@@ -17,7 +17,7 @@ var BookListView = Backbone.View.extend({
         data.books = _.map(results, function(r){
           var rs = r.get('detail');
           if(r.get("streetname")){
-          rs.streetname = r.get("streetname").city+" "+r.get("streetname").street;
+            rs.streetname = r.get("streetname").city+" "+r.get("streetname").street;
           }
           return rs;
         });

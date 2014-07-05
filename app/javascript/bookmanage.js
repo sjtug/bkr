@@ -1,6 +1,17 @@
-var bookinfo = require("./bookinfo.js");
+
+$ = require("jquery");
 var Book =  AV.Object.extend("book");
 var User = AV.User.current();
+
+var fetchBookInfo=function(isbn,callback)  
+{
+   $.ajax({
+             url:"http://api.douban.com/v2/book/isbn/"+isbn,
+             dataType:"jsonp",
+             jsonp:"callback",
+             success: callback
+        });
+};
 
 var fakeBookList = function(isbn,locationArray)
 {
@@ -32,7 +43,7 @@ var fakeBookList = function(isbn,locationArray)
         return;
       }
     }
-    bookinfo.fetchBookInfo(isbn,bookInfoCallback)
+    fetchBookInfo(isbn,bookInfoCallback)
   }
   queryUserBook(isbn,queryUserBookCallback);
 }
@@ -68,7 +79,7 @@ var addBook = function(isbn,success_callback,error_callback) {
         return;
       }
     }
-    bookinfo.fetchBookInfo(isbn,bookInfoCallback)
+    fetchBookInfo(isbn,bookInfoCallback)
   }
   queryUserBook(isbn,queryUserBookCallback);
 }

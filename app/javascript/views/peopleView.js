@@ -8,25 +8,39 @@ var Yoo = require("../yoo");
 
 
 var PeopleView = Backbone.View.extend({
-  tags:"div",
-  className : "popup",
-  otheruser : null,
   template: _.template($('#tmpl-people-view').html()),
   render: function(data) {
     var ts = this;
+    var bookmanage = require('../bookmanage');
   	User.getUser(data.username, function(result){
-  		otheruser = result;
+      otheruser = result;
       data.avatar = User.avatar(120, result);
-      ts.$el.html(ts.template(data));
-  	}, function(error){
-  		app.alert("", error);
-  	});  
+      AV.GeoPoint.current(function(currentLocation) {
+        bookmanage.listBookByUser(
+          otheruser,
+          function(results){
+            data.books = _.map(results, function(r){
+              var rs = r.get('detail');
+              if (currentLocation) {
+                var distance = r.get('location').kilometersTo(currentLocation);
+                if (distance < 0.1) rs.distance = '<0.1';
+                else if(distance > 10) rs.distance = '>10';
+                else rs.distance = Math.round(distance*10)/10;
+              }
+              return rs;
+            });
+            ts.$el.html(ts.template(data));
+          });
+      });
+    }, function(error){
+      app.alert("", error);
+    });
   }, 
   events : {
-  	"click #sayyo" : 'yofunction'
+    "click #sayyo" : 'yofunction'
   }, 
   yofunction : function(){
-  	Yoo.yoo(otheruser);
+    Yoo.yoo(otheruser);
   }
 })
 

@@ -63,5 +63,27 @@ var getyoos = function(begin, successcal, errorcal){
 	});
 }
 
+//戳别人多少次
+var yooed = function(otheruser, successcal, errorcal){
+	var query = new AV.Query("Yoo");
+	query.include("fromUser");
+	query.include("toUser");
+	query.equalTo("fromUser", current());
+	query.equalTo("toUser", otheruser);
+	query.find({
+		success : function(results){
+			if(results.length > 0){
+				successcal(results.length, results[0].get("binary"));
+			}else{
+				successcal(0, false);
+			}
+		},
+		error : function(error){
+			errorcal(error.message);
+		}
+	})
+}
+
 exports.yoo = yoo;
 exports.getyoos = getyoos;
+exports.yooed = yooed;

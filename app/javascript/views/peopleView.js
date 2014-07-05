@@ -29,7 +29,11 @@ var PeopleView = Backbone.View.extend({
               }
               return rs;
             });
-            ts.$el.html(ts.template(data));
+            yooed(otheruser, function(times, binary){
+              ts.$el.html(ts.template(data));
+            }, function(error){
+              console.log(error);
+            })          
           });
       });
     }, function(error){

@@ -3,7 +3,7 @@ var _ = require("underscore");
 
 var Backbone = require("backbone");
 var User = require("../user");
-var app = require("../app").app;
+var App = require("../app");
 var Yoo = require("../yoo");
 
 
@@ -37,7 +37,7 @@ var PeopleView = Backbone.View.extend({
           });
       });
     }, function(error){
-      app.alert("", error);
+      App.app.alert("", error);
     });
   }, 
   events : {

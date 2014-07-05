@@ -8,6 +8,7 @@ var RegisterView = require("./views/registerView");
 var BookView = require("./views/bookView");
 var PeopleView = require("./views/peopleView");
 var BarcodeView = require("./views/barcodeView");
+var AboutView = require("./views/AboutView");
 
 
 var App = require("./app");
@@ -24,6 +25,7 @@ var Router = Backbone.Router.extend({
     'register': 'register',
     'logout': 'logout',
     'scanbarcode': 'scanbarcode',
+    'about': 'about',
     'book/:isbn': 'book',
     'people/:username': 'people',
   },
@@ -58,11 +60,14 @@ var Router = Backbone.Router.extend({
   },
   people: function(username){
     console.log("people");
-    this.pushPage({username:username}, PeopleView);
+    this.pushPage('', username, {username:username}, PeopleView);
   },
   scanbarcode: function() {
     var barcodeView = new BarcodeView();
     barcodeView.render();
+  },
+  about: function() {
+   this.pushPage('', '关于', {}, AboutView);
   },
   execute: function(callback, args) {
     if (callback) {

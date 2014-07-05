@@ -20,5 +20,20 @@ var yoo = function(toUser){
 		}
 	})
 }
+var getyoos = function(begin, successcal, errorcal){
+	var user = User.current();
+	var query = new AV.Query(AV.User);
+	query.equalTo("toUser", user);
+	query.limit(50);
+	query.skip(begin);
+	query.find({
+		success : function(results){
+			successcal(results);
+		}, 
+		error : function(error){
+			errorcal(error);
+		}
+	});
+}
 
 exports.yoo = yoo;

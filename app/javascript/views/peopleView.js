@@ -13,12 +13,14 @@ var PeopleView = Backbone.View.extend({
   otheruser : null,
   template: _.template($('#tmpl-people-view').html()),
   render: function(data) {
+    var ts = this;
   	User.getUser(data.username, function(result){
   		otheruser = result;
+      data.avatar = User.avatar(120, result);
+      ts.$el.html(ts.template(data));
   	}, function(error){
   		app.alert("", error);
-  	});
-    this.$el.html(this.template(data));
+  	});  
   }, 
   events : {
   	"click #sayyo" : 'yofunction'

@@ -89,8 +89,8 @@ var current = function() {
   }
 }
 
-var avatar = function(size){
-  var user = AV.User.current();
+var avatar = function(size, user){
+  user = user || AV.User.current();
   if(user){
     return "http://www.gravatar.com/avatar/"+MD5(user.get("email"))+"?s="+(size || 120)+"&d=mm";
   }else{

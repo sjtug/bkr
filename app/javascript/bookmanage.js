@@ -112,32 +112,28 @@ var removeBook = function(bookobj,success_callback,error_callback){
     });
 }
   
-var listNearBook = function(callback){
-  var locationCallback = function(location){
-    var filterCallback = function (results){
-      var symbol = {};
-      var res = [];
-      for (var idx in results){
-        var isbn = results[idx].get("isbn")
-        if(isbn && !symbol[isbn]){          
-            symbol[isbn] = true;
-            res.push(results[idx]);          
-        }
-      } 
-    callback(res);
-    }  
-    var currentPoint = new AV.GeoPoint({latitude: location.coords.latitude, longitude: location.coords.longitude});
-    var query = new AV.Query(Book);
-    query.descending("createdAt");
-    query.withinKilometers("location", currentPoint,5);
-    query.limit(100);
-    query.include("owner");
-    query.notEqualTo("owner", User);
-    query.find({
-    success: filterCallback
-    });
-  }
-navigator.geolocation.getCurrentPosition(locationCallback);
+var listNearBook = function(GeoPoint,callback){  
+  var filterCallback = function (results){
+    var symbol = {};
+    var res = [];
+    for (var idx in results){
+      var isbn = results[idx].get("isbn")
+      if(isbn && !symbol[isbn]){          
+          symbol[isbn] = true;
+          res.push(results[idx]);          
+      }
+    } 
+  callback(res);
+  }  
+  var query = new AV.Query(Book);
+  query.descending("createdAt");
+  query.withinKilometers("location", GeoPoint,5);
+  query.include("owner");
+  query.notEqualTo("owner", User);
+  query.limit(100);
+  query.find({
+  success: filterCallback
+  });
 }
 
 
@@ -183,7 +179,7 @@ var AddStreetNameToAllBooks = function()
   {   
     for (var idx in results){    
       function temp(){ 
-      var newbook=results[idx]; 
+        var newbook=results[idx]; 
         var streetnameCallback = function(streetname){
            if(streetname.result && streetname.result.addressComponent)
            {

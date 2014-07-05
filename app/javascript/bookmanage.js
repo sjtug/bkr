@@ -115,6 +115,7 @@ var listNearBook = function(callback){
     }
     var currentPoint = new AV.GeoPoint({latitude: location.coords.latitude, longitude: location.coords.longitude});
     var query = new AV.Query(Book);
+    query.descending("createdAt");
     query.withinKilometers("location", currentPoint,5);
     query.limit(100);
     query.include("owner");
@@ -130,6 +131,7 @@ navigator.geolocation.getCurrentPosition(locationCallback);
 var listBookByUser = function(userObj,callback){
   var query = new AV.Query(Book); 
   query.equalTo("owner", userObj);
+  query.descending("createdAt");
   query.find({
       success: function(results){
         callback(results);
@@ -153,6 +155,7 @@ var listUserByBook = function(bookObj,callback)
   }
 
    var query = new AV.Query(Book);
+   query.descending("createdAt");
    query.include("owner");
    query.select("owner");
    query.equalTo("isbn",bookObj.get("isbn"));

@@ -68,16 +68,18 @@ var yooed = function(otheruser, successcal, errorcal){
 	var fromquery = new AV.Query("Yoo");
 	fromquery.include("fromUser");
 	fromquery.include("toUser");
-	fromquery.equalTo("fromUser", current());
+	fromquery.equalTo("fromUser", User.current());
 	fromquery.equalTo("toUser", otheruser);
 
 	var toquery = new AV.Query("Yoo");
 	toquery.include("fromUser");
 	toquery.include("toUser");
 	toquery.equalTo("fromUser", otheruser);
-	toquery.equalTo("toUser", current());
+	toquery.equalTo("toUser", User.current());
 
 	var mainquery = AV.Query.or(fromquery, toquery);
+	mainquery.include("fromUser");
+	mainquery.include("toUser");
 
 	var getTimes = function(results){
 		var times = {};
@@ -85,7 +87,9 @@ var yooed = function(otheruser, successcal, errorcal){
 		times.yooes = 0;
 		for(var i in results){
 			var result = results[i];
-			if(result.get("fromUser") == current()){
+            console.log(result);
+            console.log(result.get("fromUser").get('username'));
+			if(result.get("fromUser").get('username') == User.current().get('username')){
 				times.yooes++;
 			}else{
 				times.yooed++;

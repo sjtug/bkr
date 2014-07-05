@@ -3,18 +3,70 @@
     <div class="circular"><img src="<%= avatar %>" /></div>
     <div class="username"><%= username %></div>
   </div>
+<% if (yoo_times.yooes > 0 && yoo_times.yooed < 1) { %>
+  <div class="describe">
+  您已经戳了 <%= yoo_times.yooes %> 次
+  </div>
+  <div class="row">
+    <div class="col-33">&nbsp;</div>
+    <div class="col-33">
+      <a id="sayyoo" class="button yoo-again">再戳</a>
+    </div>
+    <div class="col-33">&nbsp;</div>
+  </div>
+  <% } else if (yoo_times.yooed > 0 && yoo_times.yooes < 1) { %>
+  <div class="describe">
+    您被戳了 <%= yoo_times.yooed %> 次，回戳以交换联系方式
+  </div>
+  <div class="row">
+    <div class="col-33">&nbsp;</div>
+    <div class="col-33">
+      <a id="sayyoo" class="button yoo-back">回戳</a>
+    </div>
+    <div class="col-33">&nbsp;</div>
+  </div>
+  <% } else if (yoo_times.yooed > 0 && yoo_times.yooes > 0) { %>
+  <div class="describe">
+    双方已互戳
+  </div>
+  <div class="row">
+    <div class="col-33">&nbsp;</div>
+    <div class="col-33">
+      <a class="button yoo-finish">互戳成功</a>
+    </div>
+    <div class="col-33">&nbsp;</div>
+  </div>
+</div>
+  <div class="content-block-title">联系方式</div>
+  <div class="list-block">
+    <ul>
+      <li>
+      <a class="item-link item-content" href="mailto:<%= otheruser.get('email') %>">
+        <div class="item-media">
+          <i class="ion-android-mail"></i>
+        </div>
+        <div class="item-inner">
+          <div class="item-title">Email</div>
+          <div class="item-after"><%= otheruser.get('email') %></div>
+        </div>
+      </a>
+      </li>
+    </ul>
+<% } else { %>
   <div class="describe">
     交换联系方式
   </div>
   <div class="row">
     <div class="col-33">&nbsp;</div>
     <div class="col-33">
-      <a class="button">戳一下</a>
+      <a id="sayyoo" class="button">戳一下</a>
     </div>
     <div class="col-33">&nbsp;</div>
   </div>
+<% } %>
 </div>
 
+<% if (books.length) { %>
 <div class="content-block-title">最近标记过</div>
 <div class="list-block media-list book-list">
   <ul>
@@ -45,3 +97,10 @@
     <% }) %>
   </ul>
 </div>
+<% } else { %>
+<div class="content-block">
+  <div class="content-block-inner no-books">
+    对方还未标记过图书。
+  </div>
+</div>
+<% } %>

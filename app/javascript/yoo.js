@@ -63,25 +63,46 @@ var getyoos = function(begin, successcal, errorcal){
 	});
 }
 
-//戳别人多少次
+//戳多少次
 var yooed = function(otheruser, successcal, errorcal){
-	var query = new AV.Query("Yoo");
-	query.include("fromUser");
-	query.include("toUser");
-	query.equalTo("fromUser", current());
-	query.equalTo("toUser", otheruser);
-	query.find({
-		success : function(results){
-			if(results.length > 0){
-				successcal(results.length, results[0].get("binary"));
+	var fromquery = new AV.Query("Yoo");
+	fromquery.include("fromUser");
+	fromquery.include("toUser");
+	fromquery.equalTo("fromUser", current());
+	fromquery.equalTo("toUser", otheruser);
+
+	var toquery = new AV.Query("Yoo");
+	toquery.include("fromUser");
+	toquery.include("toUser");
+	toquery.equalTo("fromUser", otheruser);
+	toquery.equalTo("toUser", current());
+
+	var mainquery = AV.Query.or(fromquery, toquery);
+
+	var getTimes = function(results){
+		var times = {};
+		times.yooed = 0;
+		times.yooes = 0;
+		for(var i in results){
+			var result = results[i];
+			if(result.get("fromUser") == current()){
+				times.yooes++;
 			}else{
-				successcal(0, false);
+				times.yooed++;
 			}
+		}
+		return times;
+	}
+
+	mainquery.find({
+		success : function(results){
+			successcal(getTimes(results));
 		},
 		error : function(error){
 			errorcal(error.message);
 		}
-	})
+	});
+
 }
 
 exports.yoo = yoo;

@@ -4,9 +4,10 @@ var Book =  AV.Object.extend("book");
 var User = AV.User.current();
 var GeoCoding = require("./geocoding");
 
-var fetchBookInfo=function(isbn,callback,error_callback) {
-  var error_callback=error_callback||function(data){console.log(data)};
-  $.ajax({
+var fetchBookInfo=function(isbn,callback,error_callback)  
+var error_callback=error_callback||function(data){console.log(data)};
+{
+   $.ajax({
              timeout:3000,
              url:"http://api.douban.com/v2/book/isbn/"+isbn,
              dataType:"jsonp",

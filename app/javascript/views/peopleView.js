@@ -3,7 +3,7 @@ var _ = require("underscore");
 
 var Backbone = require("backbone");
 var User = require("../user");
-var app = require("../app")
+var app = require("../app").app;
 var Yoo = require("../yoo");
 
 

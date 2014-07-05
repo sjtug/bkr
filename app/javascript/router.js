@@ -25,6 +25,7 @@ var Router = Backbone.Router.extend({
     'register': 'register',
     'logout': 'logout',
     'scanbarcode': 'scanbarcode',
+    'settings': 'settings',
     'about': 'about',
     'book/:isbn': 'book',
     'people/:username': 'people',

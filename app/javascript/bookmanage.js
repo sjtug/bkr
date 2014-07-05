@@ -2,6 +2,7 @@
 $ = require("jquery");
 var Book =  AV.Object.extend("book");
 var User = AV.User.current();
+var GeoCoding = require("./geocoding");
 var fetchBookInfo=function(isbn,callback)  
 {
    $.ajax({
@@ -54,21 +55,30 @@ var addBook = function(isbn,infodata,success_callback,error_callback) {
        error_callback("BOOK_ALREADY_EXISTS");
        return;
     }   
-    var locationCallback = function(location){
       var newbook = new Book();
       newbook.set("detail",infodata);
       newbook.set("title",infodata.title);
       newbook.set("author",infodata.author);
       newbook.set("isbn",isbn);
       newbook.set("owner",User);
-      newbook.set("location",new AV.GeoPoint({latitude: location.coords.latitude, longitude: location.coords.longitude}));
+      console.log(newbook);
       newbook.save(null, { 
         success: success_callback,
         error: function(newbook, error) {
           error_callback(error.description);   
         }
       });
-    }
+      var locationCallback = function(location){
+        var streetnameCallback = function(streetname){
+           newbook.set("location",new AV.GeoPoint({latitude: location.coords.latitude, longitude: location.coords.longitude}));
+           if(streetname.result && streetname.result.addressComponent)
+           {
+            newbook.set("streetname",streetname.result.addressComponent);
+           }
+           newbook.save();
+        }
+        GeoCoding.geoDecodingGPS(location.coords.latitude,location.coords.longitude,streetnameCallback);
+      }
     navigator.geolocation.getCurrentPosition(locationCallback);     
   }
   queryUserBook(isbn,queryUserBookCallback);

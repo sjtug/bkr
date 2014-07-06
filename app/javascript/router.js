@@ -6,6 +6,7 @@ var IndexView = require("./views/indexView");
 var LoginView = require("./views/loginView");
 var RegisterView = require("./views/registerView");
 var BookView = require("./views/bookView");
+var WhoIsReadingView = require("./views/whoIsReadingView");
 var PeopleView = require("./views/peopleView");
 var BarcodeView = require("./views/barcodeView");
 var AddBookView = require("./views/addbookView");
@@ -30,7 +31,8 @@ var Router = Backbone.Router.extend({
     'addbook': 'addbook',
     'settings': 'settings',
     'about': 'about',
-    'book/:isbn': 'book',
+    'book/:isbn(/:cancheck)': 'book',
+    'whoisreading/:isbn': 'whoisreading',
     'people/:username': 'people',
   },
   index: function(tab){
@@ -62,8 +64,11 @@ var Router = Backbone.Router.extend({
     user.logout();
     this.navigate('', true);
   },
-  book: function(isbn){
-    this.pushPage('', 'book', {isbn:isbn}, BookView);
+  book: function(isbn, cancheck){
+    this.pushPage('', '图书信息', {isbn:isbn, cancheck: cancheck}, BookView);
+  },
+  whoisreading: function(isbn){
+    this.pushPage('', '谁在看', {isbn:isbn}, WhoIsReadingView);
   },
   people: function(username){
     console.log("people");
@@ -73,14 +78,14 @@ var Router = Backbone.Router.extend({
     var barcodeView = new BarcodeView();
     var ts = this;
     barcodeView.scan(function(isbn) {
-        ts.navigate('#book/' + isbn, true);
+        ts.navigate('#book/' + isbn + '/true', true);
     });
   },
   addbook: function(){
     var addbookView = new AddBookView();
     var ts = this;
     addbookView.add(function(isbn) {
-        ts.navigate('#book/' + isbn, true);
+        ts.navigate('#book/' + isbn + '/true', true);
     });
   },
   about: function() {

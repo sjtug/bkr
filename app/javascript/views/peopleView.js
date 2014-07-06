@@ -36,7 +36,7 @@ var PeopleView = Backbone.View.extend({
               App.app.alert('网络错误', 'bkr');
             })
           });
-      })();
+      });
     }, function(error){
       App.app.alert("", error);
     });

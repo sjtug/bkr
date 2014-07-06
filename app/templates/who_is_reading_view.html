@@ -1,0 +1,16 @@
+<div class="list-block">
+  <ul>
+    <% _.each(people, function(person){ %>
+    <li>
+    <a href="#people/<%= person.get('username') %>" class="item-link item-content link">
+      <div class="item-media">
+        <img class = "avatar" src="<%=avatar(30, person)%>">
+      </div>
+      <div class="item-inner">
+        <div class="item-title"><%=person.get('username') %></div>
+      </div>
+    </a>
+    </li>
+    <%}) %>
+  </ul>
+</div>

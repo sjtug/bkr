@@ -2,7 +2,7 @@
   <ul>
     <% _.each(books, function(book){ %>
     <li>
-    <a href="#book/<%= book.isbn13 || book.isbn10 %>" class="item-link item-content">
+    <a href="#book/<%= book.isbn13 || book.isbn10 %>/true" class="item-link item-content">
       <div class="item-media"><img src="<%= book.images.medium %>" height="60"></div>
       <div class="item-inner">
         <div class="item-title-row">

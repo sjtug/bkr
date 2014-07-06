@@ -9,6 +9,7 @@ var YooView = Backbone.View.extend({
   template: _.template($('#tmpl-yoo-view').html()),
   timestamp : 0,
   render: function() {
+    console.log('render yoo');
   	this.$el.html('<div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');
   	var ts = this;
   	Yoo.getyoos(0, function(results){
@@ -22,14 +23,12 @@ var YooView = Backbone.View.extend({
   	}, function(error){
   		console.log(error);
   	});
-    // this.$el.html(this.template());
   },
   trigger: function() {
     var date = new Date();
-    console.log("triggered");
     if(date.valueOf() - this.timestamp > 60000){
-    	this.render();
     	this.timestamp = date.valueOf();
+    	this.render();
     }
   }, 
   clear : function(results){

@@ -69,6 +69,12 @@ var IndexView = Backbone.View.extend({
     var activeTab = this.$('.tab.active');
     this.triggerTab('#' + activeTab.attr('id'), true);
   }, 
+  clearData: function() {
+    if (this.yooView) this.yooView.timestamp = 0;
+    if (this.nearbyView) this.nearbyView.timestamp = 0;
+    if (this.bookListView) this.bookListView.timestamp = 0;
+    $('#books,#nearby,#yoo').html('');
+  }
 });
 
 module.exports = IndexView;

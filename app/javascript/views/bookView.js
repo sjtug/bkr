@@ -37,12 +37,10 @@ var BookView = Backbone.View.extend({
   markThisBook: function() {
     var ts = this;
     var succ_cbk = function (result) {
-      console.log('success');
       App.app.hideIndicator();
       App.app.alert("图书添加成功", "添加成功");
     };
     var fail_cbk = function (result) {
-      console.log(result);
       App.app.hideIndicator();
       App.app.alert("图书添加失败", "添加失败");
     };

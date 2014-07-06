@@ -44,6 +44,7 @@ var Router = Backbone.Router.extend({
     this.indexView.render();
   },
   login: function(){
+    this.indexView.clearData();
     app.closeModal();
     if(!this.loginView){
       this.loginView = new LoginView();
@@ -51,6 +52,7 @@ var Router = Backbone.Router.extend({
     this.loginView.popup();
   },
   register: function(){
+    this.indexView.clearData();
     app.closeModal();
     if(!this.registerView){
       this.registerView = new RegisterView();

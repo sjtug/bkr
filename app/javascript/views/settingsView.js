@@ -9,7 +9,6 @@ var SettingsView = Backbone.View.extend({
 	render : function(data){
 		data.user = User.current();
 		this.$el.html(this.template(data));
-		console.log(this.$el);
 	},
 	events : {
 		"click #change" : "changepassword", 
@@ -36,7 +35,6 @@ var SettingsView = Backbone.View.extend({
 			this.$el.find("#wxnumber").val(), function(){
 				app.alert("修改成功", "基本信息");
 				AV.User.current().fetch();
-				console.log(AV.User.current());
 			}, function(error){
 				app.alert("修改失败","基本信息");
 			});

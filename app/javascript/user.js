@@ -152,25 +152,24 @@ var getUser = function(username, successcal, errorcal){
   })
 }
 var saveBasic = function(realname, telephone, qqnumber, wxnumber, successcal, errorcal){
-  // var user = current();
-  // user.set("realname", realname);
-  // user.set("telephone", telephone);
-  // user.set("qqnumber", qqnumber);
-  // user.set("wxnumber", wxnumber);
 
   current().set("realname", realname);
   current().set("telephone", telephone);
   current().set("qqnumber", qqnumber);
   current().set("wxnumber", wxnumber);
 
-  current().save(null,{
+  var user = new AV.User(current());
+  user.id = current().id;
+  user.fetchWhenSave(true);
+
+  user.save(null, {
     success : function(user){
       successcal();
     }, 
     error : function(user, error){
       errorcal(error.message);
     }
-  })
+  });
 }
 
 

@@ -1,4 +1,5 @@
 <div class="list-block">
+  <% if (people.length) { %>
   <ul>
     <% _.each(people, function(person){ %>
     <li>
@@ -13,4 +14,7 @@
     </li>
     <%}) %>
   </ul>
+  <% } else { %>
+  <p>还没有人登记这本书，快去登记吧！</p>
+  <% } %>
 </div>

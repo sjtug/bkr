@@ -52,6 +52,19 @@
         </div>
       </a>
       </li>
+      <% if (otheruser.get('telephone')) { %>
+      <li>
+      <a class="item-link item-content" href="tel:<%= otheruser.get('telephone') %>">
+        <div class="item-media">
+          <i class="ion-ios7-telephone"></i>
+        </div>
+        <div class="item-inner">
+          <div class="item-title">电话</div>
+          <div class="item-after"><%= otheruser.get('telephone') %></div>
+        </div>
+      </a>
+      </li>
+      <% } %>
       <% if (otheruser.get('wxnumber')) { %>
       <li>
       <a class="item-link item-content" href="weixin:<%= otheruser.get('wxnumber') %>">
@@ -74,19 +87,6 @@
         <div class="item-inner">
           <div class="item-title">QQ</div>
           <div class="item-after"><%= otheruser.get('qqnumber') %></div>
-        </div>
-      </a>
-      </li>
-      <% } %>
-      <% if (otheruser.get('telephone')) { %>
-      <li>
-      <a class="item-link item-content" href="tel:<%= otheruser.get('telephone') %>">
-        <div class="item-media">
-          <i class="ion-ios7-telephone"></i>
-        </div>
-        <div class="item-inner">
-          <div class="item-title">电话</div>
-          <div class="item-after"><%= otheruser.get('telephone') %></div>
         </div>
       </a>
       </li>

@@ -1,100 +1,91 @@
-<div class="list-block" style="margin-top:0px;">
-	<div class="list-group">
-		<ul>
-			<li class="list-group-title">基本信息</li>
-			<li>
-				<div class="item-content">
-					<div class="item-inner">
-						<div class="item-title label">真实姓名</div>
-						<div class="item-input">
-							<input type="text" id="realname" value='<%=user.get("realname")%>'>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="item-content">
-					<div class="item-inner">
-						<div class="item-title label">手机号</div>
-						<div class="item-input">
-							<input type="text" id="telephone" value='<%=user.get("telephone")%>'>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="item-content">
-					<div class="item-inner">
-						<div class="item-title label">QQ</div>
-						<div class="item-input">
-							<input type="text" id="qqnumber" value='<%=user.get("qqnumber")%>'>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="item-content">
-					<div class="item-inner">
-						<div class="item-title label">微信</div>
-						<div class="item-input">
-							<input type="text" id="wxnumber" value='<%=user.get("wxnumber")%>'>
-						</div>
-					</div>
-				</div>
-			</li>
-			<div class="content-block" style="margin-top:10px;padding-bottom:5px;margin-bottom:0px">
-				<a class="button button-submit" id="save">保存</a>
-<!-- 					<div class="row">
-						<div class="col-25">&nbsp;</div>
-						<div class="col-50">
-							<a class="button button-submit" id="save">保存</a>
-						</div>
-						<div class="col-25">&nbsp;</div>
-					</div> -->
-				</div>
-			</ul>
-		</div>
-		<div class="list-group">
-			<ul>
-				<li class="list-group-title">修改密码</li>
-				<li>
-					<div class="item-content">
-						<div class="item-inner">
-							<div class="item-input">
-								<input type="password" placeholder="当前密码" id="oldpassword"> 
-							</div>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="item-content">
-						<div class="item-inner">
-							<div class="item-input">
-								<input type="password" placeholder="新密码" id="newpassword">
-							</div>
-						</div>
-					</div>
-				</li> 
-				<li>
-					<div class="item-content">
-						<div class="item-inner">
-							<div class="item-input">
-								<input type="password" placeholder="重复密码" id="repassword">
-							</div>
-						</div>
-					</div>
-				</li> 
-				<div class="content-block" style="margin-top:10px;padding-bottom:5px">
-					<div class="row">
-						<div class="col-50">
-							<a class="button button-cancel" id="reset">重置</a>
-						</div>
-						<div class="col-50">
-							<a class="button button-submit" id="change">修改</a>
-						</div>
-					</div>
-				</div>
-			</ul>
-		</div>
-	</div>
+<div class="content-block-title">基本信息</div>
+<div class="list-block">
+  <ul>
+    <li>
+    <div class="item-content">
+      <div class="item-inner">
+        <div class="item-title label">真实姓名</div>
+        <div class="item-input">
+          <input type="text" id="realname" value='<%=user.get("realname")%>'>
+        </div>
+      </div>
+    </div>
+    </li>
+    <li>
+    <div class="item-content">
+      <div class="item-inner">
+        <div class="item-title label">手机号</div>
+        <div class="item-input">
+          <input type="text" id="telephone" value='<%=user.get("telephone")%>'>
+        </div>
+      </div>
+    </div>
+    </li>
+    <li>
+    <div class="item-content">
+      <div class="item-inner">
+        <div class="item-title label">QQ</div>
+        <div class="item-input">
+          <input type="text" id="qqnumber" value='<%=user.get("qqnumber")%>'>
+        </div>
+      </div>
+    </div>
+    </li>
+    <li>
+    <div class="item-content">
+      <div class="item-inner">
+        <div class="item-title label">微信</div>
+        <div class="item-input">
+          <input type="text" id="wxnumber" value='<%=user.get("wxnumber")%>'>
+        </div>
+      </div>
+    </div>
+    </li>
+  </ul>
+  <div class="content-block" style="margin-top:10px;padding-bottom:5px;margin-bottom:0px">
+    <a class="button button-submit" id="save">保存</a>
+  </div>
+</div>
+<div class="content-block-title">修改密码</div>
+<div class="list-block">
+  <ul>
+    <li>
+    <div class="item-content">
+      <div class="item-inner">
+        <div class="item-input">
+          <input type="password" placeholder="当前密码" id="oldpassword"> 
+        </div>
+      </div>
+    </div>
+    </li>
+    <li>
+    <div class="item-content">
+      <div class="item-inner">
+        <div class="item-input">
+          <input type="password" placeholder="新密码" id="newpassword">
+        </div>
+      </div>
+    </div>
+    </li> 
+    <li>
+    <div class="item-content">
+      <div class="item-inner">
+        <div class="item-input">
+          <input type="password" placeholder="重复密码" id="repassword">
+        </div>
+      </div>
+    </div>
+    </li> 
+  </ul>
+  <div class="content-block" style="margin-top:10px;padding-bottom:5px">
+    <div class="row">
+      <div class="col-50">
+        <a class="button button-cancel" id="reset">重置</a>
+      </div>
+      <div class="col-50">
+        <a class="button button-submit" id="change">修改</a>
+      </div>
+    </div>
+  </div>
 
+</div>

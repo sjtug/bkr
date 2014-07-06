@@ -106,7 +106,6 @@ var Router = Backbone.Router.extend({
     if (!this._history) this._history = [''];
     if (this._history.length>1) {
       var last2 = this._history[this._history.length-2];
-      console.log(last2);
       if (last2 == Backbone.history.fragment) {
         this._history.pop();
         mainView.goBack();
@@ -119,12 +118,14 @@ var Router = Backbone.Router.extend({
     }
     back = back || '';
     if (this._history.length > 0){
-      back = '#' + this._history[this._history.length-1];
+      back = this._history[this._history.length-1];
+      if (back.length) {if (back[0]!='#') back = '#' + back;}
+      else back = '#';
     }
     mainView.loadContent(baseNavTemplate({back:back, title:title}));
     var newView = new ViewClass({el: $('.page-on-center .page-content').get(0)});
     newView.render(data);
-    var fragment = BarcodeView.history.fragment;
+    var fragment = Backbone.history.fragment;
     if (fragment != '#scanbarcode' && fragment != '#addbook') this._history.push(fragment);
   }
 });

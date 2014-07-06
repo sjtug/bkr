@@ -6,10 +6,12 @@ var App = require('../app');
 
 var BookView = Backbone.View.extend({
   template: _.template($('#tmpl-book-view').html()),
+  initialize: function(){
+    this.bookmanage = require("../bookmanage");
+  },
   render: function(data) {
-    var bookmanage = require("../bookmanage");
     var ts = this;
-    bookmanage.fetchBookInfo(data.isbn, function(bookjson) {
+    this.bookmanage.fetchBookInfo(data.isbn, function(bookjson) {
       data.bookjson = bookjson;
       ts.isbn = data.isbn;
       ts.bookjson = data.bookjson;
@@ -17,20 +19,22 @@ var BookView = Backbone.View.extend({
     });
   },
   events: {
-      'click #addbook' : 'addThisBook'
+      'click #markbook' : 'markThisBook'
   },
-  addThisBook: function() {
+  markThisBook: function() {
         var ts = this;
         var succ_cbk = function (result) {
-            App.app.hideIndicator();
-            App.app.alert("图书添加成功", "添加成功");
+          console.log('success');
+          App.app.hideIndicator();
+          App.app.alert("图书添加成功", "添加成功");
         };
         var fail_cbk = function (result) {
-            App.app.hideIndicator();
-            App.app.alert("图书添加失败", "添加失败");
+          console.log(result);
+          App.app.hideIndicator();
+          App.app.alert("图书添加失败", "添加失败");
         };
         App.app.showIndicator();
-        bookmanage.addBook(ts.isbn, ts.bookjson, succ_cbk, fail_cbk);
+        this.bookmanage.addBook(ts.isbn, ts.bookjson, succ_cbk, fail_cbk);
     }
 
 })

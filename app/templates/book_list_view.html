@@ -24,6 +24,9 @@
       </div>
     </a>
     </li>
-    <% }) %>
+    <% })
+    if(books.length<1) { %>
+      <p style="text-align:center;color:#aaa">目前还未添加图书.</p>
+      <% } %>
   </ul>
 </div>

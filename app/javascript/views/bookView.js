@@ -11,11 +11,23 @@ var BookView = Backbone.View.extend({
   },
   render: function(data) {
     var ts = this;
+    var error_cbk = function () {
+        data.bookexists = undefined;
+        ts.$el.html(ts.template(data));
+    };
+
     this.bookmanage.fetchBookInfo(data.isbn, function(bookjson) {
       data.bookjson = bookjson;
+      data.bookexists = true;
       ts.isbn = data.isbn;
       ts.bookjson = data.bookjson;
-      ts.$el.html(ts.template(data))
+      if(bookjson.msg == "book_not_found") {
+          error_cbk();
+      } else {
+        ts.$el.html(ts.template(data));
+      }
+    }, function(error) {
+        error_cbk();
     });
   },
   events: {

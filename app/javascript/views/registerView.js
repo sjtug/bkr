@@ -26,7 +26,6 @@ var RegisterView = Backbone.View.extend({
   checkname : function(){
     var ts = this;
     User.validateUser(this.$el.find("#username").val(), function(){
-      console.log(this);
       ts.$el.find("#username-info").html("<i class='icon icon-f7 ion-checkmark-round'></i>");
     }, function(error){
       ts.$el.find("#username-info").html("<i class='icon icon-f7 ion-close-round' title='"+error+"'></i>");

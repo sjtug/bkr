@@ -14,7 +14,6 @@ var WhoIsReadingView = Backbone.View.extend({
     bookmanage.listUserByBook(
       data.isbn,
       function(results){
-        console.log(results);
         ts.$el.html(ts.template({people: results, avatar: User.avatar}));
       });
   },

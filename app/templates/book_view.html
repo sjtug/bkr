@@ -1,4 +1,5 @@
 <div class="book-info toolbar-through">
+  <% if(bookexists) { %>
   <div class="content-block">
     <div class="content-block-inner banner">
       <div class="image"><img src="<%= bookjson.images.large %>" /></div>
@@ -133,4 +134,9 @@
       <%= bookjson.summary || '没有简介' %>
     </div>
   </div>
+  <% } else { %>
+  <div class="content-block" style="text-align: center">
+      <p>获取图书信息失败</p>
+  </div>
+  <% } %>
  </div>

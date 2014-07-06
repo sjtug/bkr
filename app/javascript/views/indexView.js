@@ -66,9 +66,8 @@ var IndexView = Backbone.View.extend({
     else view.trigger();
   },
   refresh: function() {
-    console.log('refresh');
-    var activeTab = this.$('tab active');
-    this.triggerTab(activeTab.attr('id'), true);
+    var activeTab = this.$('.tab.active');
+    this.triggerTab('#' + activeTab.attr('id'), true);
   }, 
 });
 

@@ -3,6 +3,7 @@
     <div class="circular"><img src="<%= avatar %>" /></div>
     <div class="username"><%= username %></div>
   </div>
+<% if (!is_me) { %>
 <% if (yoo_times.yooes > 0 && yoo_times.yooed < 1) { %>
   <div class="describe">
   您已经戳了 <%= yoo_times.yooes %> 次
@@ -38,12 +39,12 @@
   </div>
 </div>
   <div class="content-block-title">联系方式</div>
-  <div class="list-block">
+  <div class="list-block contact">
     <ul>
       <li>
       <a class="item-link item-content" href="mailto:<%= otheruser.get('email') %>">
         <div class="item-media">
-          <i class="ion-android-mail"></i>
+          <i class="ion-ios7-email"></i>
         </div>
         <div class="item-inner">
           <div class="item-title">Email</div>
@@ -51,6 +52,45 @@
         </div>
       </a>
       </li>
+      <% if (otheruser.get('telephone')) { %>
+      <li>
+      <a class="item-link item-content" href="tel:<%= otheruser.get('telephone') %>">
+        <div class="item-media">
+          <i class="ion-ios7-telephone"></i>
+        </div>
+        <div class="item-inner">
+          <div class="item-title">电话</div>
+          <div class="item-after"><%= otheruser.get('telephone') %></div>
+        </div>
+      </a>
+      </li>
+      <% } %>
+      <% if (otheruser.get('wxnumber')) { %>
+      <li>
+      <a class="item-link item-content" href="weixin:<%= otheruser.get('wxnumber') %>">
+        <div class="item-media">
+          <i class="ion-ios7-at"></i>
+        </div>
+        <div class="item-inner">
+          <div class="item-title">微信</div>
+          <div class="item-after"><%= otheruser.get('wxnumber') %></div>
+        </div>
+      </a>
+      </li>
+      <% } %>
+      <% if (otheruser.get('qqnumber')) { %>
+      <li>
+      <a class="item-link item-content" href="mqq:<%= otheruser.get('qqnumber') %>">
+        <div class="item-media">
+          <i class="ion-ios7-at"></i>
+        </div>
+        <div class="item-inner">
+          <div class="item-title">QQ</div>
+          <div class="item-after"><%= otheruser.get('qqnumber') %></div>
+        </div>
+      </a>
+      </li>
+      <% } %>
     </ul>
 <% } else { %>
   <div class="describe">
@@ -63,6 +103,7 @@
     </div>
     <div class="col-33">&nbsp;</div>
   </div>
+<% } %>
 <% } %>
 </div>
 

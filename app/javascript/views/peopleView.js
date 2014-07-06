@@ -10,6 +10,7 @@ var Yoo = require("../yoo");
 var PeopleView = Backbone.View.extend({
   template: _.template($('#tmpl-people-view').html()),
   render: function(data) {
+    this.data = data;
     var ts = this;
     var bookmanage = require('../bookmanage');
   	User.getUser(data.username, function(otheruser){
@@ -18,6 +19,7 @@ var PeopleView = Backbone.View.extend({
       AV.GeoPoint.current(function(currentLocation) {
         bookmanage.listBookByUser(ts.otheruser,
           function(results){
+            data.is_me = (User.current().get('username') == data.username);
             data.books = _.map(results, function(r){
               var rs = r.get('detail');
               if (currentLocation) {
@@ -32,8 +34,10 @@ var PeopleView = Backbone.View.extend({
               data.yoo_times = times;
               data.otheruser = ts.otheruser;
               ts.$el.html(ts.template(data));
+              App.app.hideIndicator();
             }, function(error){
               App.app.alert('网络错误', 'bkr');
+              App.app.hideIndicator();
             })
           });
       });
@@ -48,8 +52,7 @@ var PeopleView = Backbone.View.extend({
     App.app.showIndicator();
     var ts = this;
     Yoo.yoo(this.otheruser, function() {
-      App.app.hideIndicator();
-      ts.render()
+      ts.render(ts.data);
     });
   }
 })

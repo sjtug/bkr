@@ -124,7 +124,8 @@ var Router = Backbone.Router.extend({
     mainView.loadContent(baseNavTemplate({back:back, title:title}));
     var newView = new ViewClass({el: $('.page-on-center .page-content').get(0)});
     newView.render(data);
-    this._history.push(Backbone.history.fragment);
+    var fragment = BarcodeView.history.fragment;
+    if (fragment != '#scanbarcode' && fragment != '#addbook') this._history.push(fragment);
   }
 });
 

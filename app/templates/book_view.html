@@ -1,75 +1,121 @@
-
-
-<div id="bookview" class="page-on-center page-content">
-    <div id="book-image"><img src="<%= bookjson.images.medium %>" /></div>
-    <div id="header-text">
-        <h3><%= bookjson.title %></h3>
-        <p><%= bookjson.author.join() %></p>
-        <p><%= bookjson.rating.average %></p>
+<div class="book-info toolbar-through">
+  <div class="content-block">
+    <div class="content-block-inner">
+      <div class="image"><img src="<%= bookjson.images.large %>" /></div>
+      <div class="title"><%= bookjson.title %></div>
+      <div class="author"><%= bookjson.author.join(', ') %></div>
+    <% if (true) { %>
+    <div class="row">
+      <div class="col-33">&nbsp;</div>
+      <div class="col-33">
+        <a class="link button" id="markbook">
+          <i class="icon ion-ios7-location"></i>
+          <span class="toolbar-label">登记位置</span>
+        </a>
+      </div>
+      <div class="col-33">&nbsp;</div>
     </div>
-    
-    <div class="list-block">
-        <div class="list-group">
-            <ul>
-                <li class="item-content">
-                    <div class="item-media">
-                        <i class="icon ion-home">
-                        </i>
-                    </div>
-                    <div class="item-inner">
-                        <div class="item-title">
-                            <%= bookjson.publisher %>
-                        </div>
-                    </div>
-                </li>
-                <li class="item-content">
-                    <div class="item-media">
-                        <i class="icon ion-ios7-calendar-outline">
-                        </i>
-                    </div>
-                    <div class="item-inner">
-                        <div class="item-title">
-                            <%= bookjson.pubdate %>
-                        </div>
-                    </div>
-                </li>
-                <li class="item-content">
-                    <div class="item-media">
-                        <i class="icon ion-android-book">
-                        </i>
-                    </div>
-                    <div class="item-inner">
-                        <div class="item-title">
-                            <%= bookjson.pages %>
-                        </div>
-                    </div>
-                </li>
-                <li class="item-content">
-                    <div class="item-media">
-                        <i class="icon ion-ios7-pricetag">
-                        </i>
-                    </div>
-                    <div class="item-inner">
-                        <div class="item-title">
-                            <%= bookjson.tags[0].name %>
-                        </div>
-                    </div>
-                </li>
-                <li class="item-content">
-                    <div class="item-media">
-                        <i class="icon ion-ios7-information">
-                        </i>
-                    </div>
-                    <div class="item-inner">
-                        <div class="item-title">
-                            <%= bookjson.summary %>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+    <% } %>
+    </div>
+  </div>
+  <div class="content-block-title">
+    详细
+  </div>
+  <div class="list-block">
+    <ul>
+      <li class="item-content">
+      <div class="item-media">
+        <i class="icon ion-ios7-barcode">
+        </i>
+      </div>
+      <div class="item-inner">
+        <div class="item-title">
+          ISBN
         </div>
+        <div class="item-after">
+          <%= bookjson.isbn13 || bookjson.isbn10 %>
+        </div>
+      </div>
+      </li>
+      <li class="item-content">
+      <div class="item-media">
+        <i class="icon ion-ios7-home">
+        </i>
+      </div>
+      <div class="item-inner">
+        <div class="item-title">
+          出版社
+        </div>
+        <div class="item-after">
+          <%= bookjson.publisher %>
+        </div>
+      </div>
+      </li>
+      <li class="item-content">
+      <div class="item-media">
+        <i class="icon ion-ios7-calendar">
+        </i>
+      </div>
+      <div class="item-inner">
+        <div class="item-title">
+          出版时间
+        </div>
+        <div class="item-after">
+          <%= bookjson.pubdate %>
+        </div>
+      </div>
+      </li>
+      <li class="item-content">
+      <div class="item-media">
+        <i class="icon ion-ios7-paper">
+        </i>
+      </div>
+      <div class="item-inner">
+        <div class="item-title">
+          页数
+        </div>
+        <div class="item-after">
+          <%= bookjson.pages %>
+        </div>
+      </div>
+      </li>
+      <li class="item-content">
+      <div class="item-media">
+        <i class="icon ion-ios7-star">
+        </i>
+      </div>
+      <div class="item-inner">
+        <div class="item-title">
+          豆瓣评分
+        </div>
+        <div class="item-after">
+          <%= bookjson.rating.average %>
+        </div>
+      </div>
+      </li>
+      <li class="item-content">
+      <div class="item-media">
+        <i class="icon ion-ios7-pricetag">
+        </i>
+      </div>
+      <div class="item-inner">
+        <div class="item-title">
+          标签
+        </div>
+        <div class="item-after">
+          <%= _.map(bookjson.tags.slice(0, 3), function(t){return t.name}).join(', ') %>
+        </div>
+      </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="content-block-title">
+    简介
+  </div>
+  <div class="content-block">
+    <div class="content-block-inner">
+      <%= bookjson.summary %>
     </div>
-
-
-</div>
-
+  </div>
+ </div>

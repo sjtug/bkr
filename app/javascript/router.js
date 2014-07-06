@@ -89,7 +89,7 @@ var Router = Backbone.Router.extend({
   execute: function(callback, args) {
     if (callback) {
       if (callback!=this.login && callback!=this.register) {
-        if (!user.current()){
+        if (!(user.current() && user.current().get('username'))){
           this.navigate('#login', true);
           return;
         }

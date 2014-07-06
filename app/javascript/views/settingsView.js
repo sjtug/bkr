@@ -35,6 +35,7 @@ var SettingsView = Backbone.View.extend({
 			this.$el.find("#telephone").val(), this.$el.find("#qqnumber").val(), 
 			this.$el.find("#wxnumber").val(), function(){
 				app.alert("修改成功", "基本信息");
+				AV.User.current().fetch();
 				console.log(AV.User.current());
 			}, function(error){
 				app.alert("修改失败","基本信息");

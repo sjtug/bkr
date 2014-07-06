@@ -6,6 +6,7 @@ var IndexView = require("./views/indexView");
 var LoginView = require("./views/loginView");
 var RegisterView = require("./views/registerView");
 var BookView = require("./views/bookView");
+var WhoIsReadingView = require("./views/whoIsReadingView");
 var PeopleView = require("./views/peopleView");
 var BarcodeView = require("./views/barcodeView");
 var AddBookView = require("./views/addbookView");
@@ -31,6 +32,7 @@ var Router = Backbone.Router.extend({
     'settings': 'settings',
     'about': 'about',
     'book/:isbn(/:cancheck)': 'book',
+    'whoisreading/:isbn': 'whoisreading',
     'people/:username': 'people',
   },
   index: function(tab){
@@ -63,7 +65,10 @@ var Router = Backbone.Router.extend({
     this.navigate('', true);
   },
   book: function(isbn, cancheck){
-    this.pushPage('', 'book', {isbn:isbn, cancheck: cancheck}, BookView);
+    this.pushPage('', '图书信息', {isbn:isbn, cancheck: cancheck}, BookView);
+  },
+  whoisreading: function(isbn){
+    this.pushPage('', '谁在看', {isbn:isbn}, WhoIsReadingView);
   },
   people: function(username){
     console.log("people");

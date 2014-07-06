@@ -162,7 +162,7 @@ var listBookByUser = function(userObj,callback){
     });
 }
 
-var listUserByBook = function(bookObj,callback)
+var listUserByBook = function(isbn,callback)
 {
   function queryCallback(results)
   {   
@@ -177,7 +177,7 @@ var listUserByBook = function(bookObj,callback)
    query.descending("createdAt");
    query.include("owner");
    query.select("owner");
-   query.equalTo("isbn",bookObj.get("isbn"));
+   query.equalTo("isbn", isbn);
    query.find({
     success: queryCallback
     });

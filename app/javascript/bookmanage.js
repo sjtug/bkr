@@ -4,18 +4,20 @@ var Book =  AV.Object.extend("book");
 var User = AV.User.current();
 var GeoCoding = require("./geocoding");
 
-var fetchBookInfo=function(isbn,callback)  
-{
-   $.ajax({
+var fetchBookInfo=function(isbn,callback,error_callback) {
+  var error_callback=error_callback||function(data){console.log(data)};
+  $.ajax({
+             timeout:3000,
              url:"http://api.douban.com/v2/book/isbn/"+isbn,
              dataType:"jsonp",
              jsonp:"callback",
-             success: callback
+             success: callback,
+             error: error_callback
         });
 };
 
-
-var fakeBookList = function(isbn,locationArray)
+/*
+var fakeBookWithLocation = function(isbn,locationArray)
 {
   var error_callback=function(data){console.log(data)};
   var success_callback=function(data){console.log(data)};
@@ -48,7 +50,7 @@ var fakeBookList = function(isbn,locationArray)
     fetchBookInfo(isbn,bookInfoCallback)
   }
   queryUserBook(isbn,queryUserBookCallback);
-}
+}*/
 
 var addBook = function(isbn,infodata,success_callback,error_callback) {
   error_callback=error_callback||function(data){console.log(data)};
@@ -63,7 +65,6 @@ var addBook = function(isbn,infodata,success_callback,error_callback) {
       newbook.set("author",infodata.author);
       newbook.set("isbn",isbn);
       newbook.set("owner",User);
-      console.log(newbook);
       newbook.save(null, { 
         success: success_callback,
         error: function(newbook, error) {
@@ -110,6 +111,16 @@ var removeBook = function(bookobj,success_callback,error_callback){
         success:success_callback,
         error:error_callback
     });
+}
+var removeBookByISBN = function(isbn){
+  queryUserBook(isbn,function(bookobj){
+    if(bookobj){
+      removeBook(bookobj,function(data){
+        console.log(data)
+      });
+    }
+
+  });
 }
   
 var listNearBook = function(GeoPoint,callback){  
@@ -173,7 +184,7 @@ var listUserByBook = function(bookObj,callback)
 }
 
 
-var AddStreetNameToAllBooks = function()
+var addStreetNameToAllBooks = function()
 {
   function queryCallback(results)
   {   
@@ -199,8 +210,20 @@ var AddStreetNameToAllBooks = function()
     success: queryCallback
     });
 }
-//exports.fakeBookList  = fakeBookList ;
-//exports.AddStreetNameToAllBooks = AddStreetNameToAllBooks;
+
+var fakeBook = function(isbn){ 
+   Nihiue_test.fetchBookInfo(isbn,function(data){
+    Nihiue_test.addBook(isbn,data,function(Obj){
+      console.log(Obj.get("title"));
+    });
+  });
+}
+// For TEST BEGIN
+exports.fakeBook  = fakeBook ;
+exports.addStreetNameToAllBooks = addStreetNameToAllBooks;
+exports.queryUserBook = queryUserBook;
+// For TEST END
+exports.removeBookByISBN = removeBookByISBN;
 exports.fetchBookInfo = fetchBookInfo; 
 exports.addBook  = addBook ;
 exports.removeBook  = removeBook ;

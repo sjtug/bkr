@@ -24,6 +24,9 @@
       </div>
     </a>
     </li>
-    <% }) %>
+   <% })
+    if(books.length<1) { %>
+      <p style="text-align:center;color:#aaa">附近没有图书.</p>
+      <% } %>
   </ul>
 </div>
